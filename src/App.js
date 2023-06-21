@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Switch, Routes, Route, Link } from "react-router-dom"
-import NavBar from './components/navbar/NavBar';
+import NavBar from './components/NavBar/NavBar';
 
 
-import LogInPage from './components/login/LogInPage';
+import LogInPage from './components/SignInPage/LogInPage';
 import SignUpPage from './components/SignUpPage/SignUpPage';
 
 

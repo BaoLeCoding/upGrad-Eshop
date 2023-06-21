@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { Link } from "react-router-dom"
 
 
 const LogInPage = () => {
@@ -17,7 +18,7 @@ const LogInPage = () => {
       <TextField id="outlined-basic" label="Email Address *" variant="outlined" />
       <TextField id="outlined-basic" label="Password *" type="password" variant="outlined" />
       <Button variant="contained">SIGN IN</Button>
-      <Typography variant='body'><a href="./signup">Don't have an account? Sign Up </a></Typography>
+      <Typography variant='body'><Link to="/signup">Don't have an account? Sign Up </Link></Typography>
 
     </Stack>
   )
