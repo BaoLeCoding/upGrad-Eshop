@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import { Link } from "react-router-dom"
 
 
 
@@ -70,15 +71,17 @@ export default function MenuAppBar() {
 
          <AppBar position="static">
             <Toolbar>
-               <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  sx={{ mr: 2 }}
-               >
-                  <ShoppingCartIcon />
-               </IconButton>
+               <Link to="/">
+                  <IconButton
+                     size="large"
+                     edge="start"
+                     color="inherit"
+                     aria-label="menu"
+                     sx={{ mr: 2 }}
+                  >
+                     <ShoppingCartIcon />
+                  </IconButton>
+               </Link>
                <Typography variant="h6">
                   upGrad E-shop
                </Typography>
@@ -95,8 +98,11 @@ export default function MenuAppBar() {
                }
                {!isLogin &&
                   <Stack direction="row" spacing={2} padding={1} style={{ marginLeft: 'auto' }}>
-                     <Button color="inherit">Login</Button>
-                     <Button color="inherit">Sign Up</Button>
+                     <Button color="inherit">
+                        <Link to="/login">Login</Link>
+                     </Button>
+
+                     <Button color="inherit"><Link to="/signup">Sign Up</Link></Button>
                   </Stack>
                }
 
