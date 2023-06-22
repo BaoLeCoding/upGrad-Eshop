@@ -62,11 +62,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
    },
 }));
 
-export default function MenuAppBar() {
-   const [isLogin, setIsLogin] = React.useState(true);
-   const [isAdmin, setIsAdmin] = React.useState(true);
-
-   return (
+export default function MenuAppBar({isLogin = true, isAdmin = false}) {
+     return (
       <Box sx={{ flexGrow: 1 }}>
 
          <AppBar position="static">
