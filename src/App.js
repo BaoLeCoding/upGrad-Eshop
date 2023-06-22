@@ -17,6 +17,7 @@ function App() {
         <Route path="/login" element={<LogInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
+      {/* TODO: What if logged in but type Sign up/login without log out? */}
     </div>
   );
 }
