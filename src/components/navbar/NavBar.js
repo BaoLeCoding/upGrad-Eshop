@@ -17,6 +17,7 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Link } from "react-router-dom"
+import { connect } from "react-redux";
 
 
 
@@ -62,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
    },
 }));
 
-export default function MenuAppBar({ isLogin = true, isAdmin = true }) {
+let MenuAppBar = ({ isLogin, isAdmin, onSignOut }) => {
    return (
       <Box sx={{ flexGrow: 1 }}>
 
@@ -107,7 +108,7 @@ export default function MenuAppBar({ isLogin = true, isAdmin = true }) {
                   <Stack direction="row" spacing={2} padding={1} style={{ marginLeft: 'auto' }}>
                      <Button color="inherit">Home</Button>
                      {isAdmin && <Button color="inherit">Add Product</Button>}
-                     <Button color="secondary" variant='contained'>Logout</Button>
+                     <Button color="secondary" variant='contained' onClick={() => onSignOut()}>Logout</Button>
                   </Stack>
                }
 
@@ -118,3 +119,15 @@ export default function MenuAppBar({ isLogin = true, isAdmin = true }) {
       </Box >
    );
 }
+const mapSateToProps = (state) => {
+   return {
+      isLogin: state.navBar.isLogin,
+      isAdmin: state.navBar.isAdmin
+   }
+}
+const mapDispatchToProps = (dispatch) => {
+   return {
+      onSignOut: () => dispatch({ type: 'SIGN_OUT' })
+   }
+}
+export default connect(mapSateToProps, mapDispatchToProps)(MenuAppBar);
