@@ -1,4 +1,5 @@
 import React from 'react'
+import { Alert } from '@mui/material';
 import Container from '@mui/material/Container';
 import LockIcon from '@mui/icons-material/Lock';
 import { Typography } from '@mui/material';
@@ -7,9 +8,10 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
+import { fetchSignIn } from "../../store/actions/authActions"
+import CircularProgress from '@mui/material/CircularProgress';
 
-
-const LogInPage = ({ onSignIn }) => {
+const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   return (
@@ -20,22 +22,35 @@ const LogInPage = ({ onSignIn }) => {
       </Typography>
       <TextField id="outlined-basic" label="Email Address *" placeholder='Enter your email here...' variant="outlined" value={email} onChange={event => setEmail(event.target.value)} />
       <TextField id="outlined-basic" label="Password *" type="password" variant="outlined" value={password} onChange={event => setPassword(event.target.value)} />
-      <Button variant="contained" onClick={() => onSignIn(email, password)}>SIGN IN</Button>
-      <Typography variant='body'><Link to="/signup">Don't have an account? Sign Up </Link></Typography>
+      {
+        error ?
+          <Alert severity="error">Can not sign in please check your Email and Password!</Alert> :
+          null
+      }
+      {isRequestLogin ?
+        <CircularProgress /> :
+        <Button variant="contained" onClick={() => onSignIn(email, password)}>SIGN IN</Button>
+      }
+      <Alert severity="info">Admin User: Admin@gmail.com.vn | Password: 1234abcdef</Alert>
+      <Typography variant='body'><Link to="/signup">Don't have an account? Sign Up 
+      </Link></Typography>
 
     </Stack>
   )
 }
 
-const mapSateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
-    isLogin: state.navBar.isLogin,
-    isAdmin: state.navBar.isAdmin
+    isLogin: state.auth.isLogin,
+    isAdmin: state.auth.isAdmin,
+    isRequestLogin: state.auth.isRequestLogin,
+    error: state.auth.error,
+    token: state.auth.token
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSignIn: (email, password) => dispatch({ type: 'SIGN_IN', payload: { email, password } }),
+    onSignIn: (email, password) => dispatch(fetchSignIn(email, password)),
   }
 }
-export default connect(mapSateToProps, mapDispatchToProps)(LogInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);

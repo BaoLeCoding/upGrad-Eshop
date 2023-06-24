@@ -121,13 +121,17 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut }) => {
 }
 const mapSateToProps = (state) => {
    return {
-      isLogin: state.navBar.isLogin,
-      isAdmin: state.navBar.isAdmin
+      isLogin: state.auth.isLogin,
+      isAdmin: state.auth.isAdmin
    }
 }
 const mapDispatchToProps = (dispatch) => {
    return {
-      onSignOut: () => dispatch({ type: 'SIGN_OUT' })
+      onSignOut: () => {
+         //clear token from local storage
+         localStorage.removeItem('token');
+         dispatch({ type: 'SIGN_OUT' })
+      }
    }
 }
 export default connect(mapSateToProps, mapDispatchToProps)(MenuAppBar);
