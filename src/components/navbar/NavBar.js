@@ -18,6 +18,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
+import { setSearchItemName } from '../../store/actions/searchBarActions';
 
 
 
@@ -63,7 +64,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
    },
 }));
 
-let MenuAppBar = ({ isLogin, isAdmin, onSignOut }) => {
+let MenuAppBar = ({ isLogin, isAdmin, onSignOut, onSetSearchItemName }) => {
+   const onSearchBoxChange = (e) => {
+      // console.log(e.target.value)
+      onSetSearchItemName(e.target.value)
+   }
    return (
       <Box sx={{ flexGrow: 1 }}>
 
@@ -91,6 +96,7 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut }) => {
                      <StyledInputBase
                         placeholder="Search…"
                         inputProps={{ 'aria-label': 'search' }}
+                        onChange={(e) => onSearchBoxChange(e)}
                      />
                   </Search>
                }
@@ -122,7 +128,8 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut }) => {
 const mapSateToProps = (state) => {
    return {
       isLogin: state.auth.isLogin,
-      isAdmin: state.auth.isAdmin
+      isAdmin: state.auth.isAdmin,
+      searchItemName: state.searchBar.searchItemName
    }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -131,7 +138,8 @@ const mapDispatchToProps = (dispatch) => {
          //clear token from local storage
          localStorage.removeItem('token');
          dispatch({ type: 'SIGN_OUT' })
-      }
+      },
+      onSetSearchItemName: (name) => dispatch(setSearchItemName(name))
    }
 }
 export default connect(mapSateToProps, mapDispatchToProps)(MenuAppBar);

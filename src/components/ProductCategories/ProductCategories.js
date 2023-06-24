@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { fetchCategories, setFilterByCategory } from '../../store/actions/categoriesActions'
 import { connect } from 'react-redux';
 function ProductCategories({ ProductCategories, onFetchCategories, onSetFilterByCategory }) {
-   console.log(ProductCategories)
    const [selectedCategory, setSelectedCategory] = useState("All");
 
    const handleChange = (event, newSelectedCategory) => {
