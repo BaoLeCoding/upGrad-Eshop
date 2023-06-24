@@ -6,12 +6,25 @@ import { fetchProductList } from "../../store/actions/productListActions"
 import { useEffect } from 'react'
 
 
-const ProductGrid = ({ products, isAdmin, filterByCategory, onfetchProductList }) => {
+const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, onfetchProductList }) => {
 
    useEffect(() => {
       onfetchProductList()
    }, [filterByCategory])
    let filteredProducts = (filterByCategory === "All") ? products : products.filter((product) => product.category === filterByCategory)
+   switch (sortByMode) {
+      case 1:
+         filteredProducts = filteredProducts.sort((a, b) => b.price - a.price)
+         break;
+      case 2:
+         filteredProducts = filteredProducts.sort((a, b) => a.price - b.price)
+         break;
+      case 3:
+         filteredProducts = filteredProducts.sort((a, b) => a.name.localeCompare(b.name))
+         break;
+      default:
+         break;
+   }
 
    return (
       <Fragment>
@@ -32,7 +45,8 @@ let mapStateToProps = (state) => {
    return {
       products: state.productList.products,
       isAdmin: state.auth.isAdmin,
-      filterByCategory: state.categories.filterByCategory
+      filterByCategory: state.categories.filterByCategory,
+      sortByMode: state.shortBy.shortByMode
    }
 }
 let mapDispatchToProps = (dispatch) => {

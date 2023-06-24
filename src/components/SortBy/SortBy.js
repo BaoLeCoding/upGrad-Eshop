@@ -1,9 +1,15 @@
 import React from 'react'
 import { FormControl, InputLabel, MenuItem, Select, FormHelperText } from '@mui/material'
-const SortBy = () => {
-   const [age, setAge] = React.useState('');
+import { connect } from 'react-redux'
+import { setShortByMode } from '../../store/actions/shortByActions'
+
+
+
+const SortBy = ({ shortByMode, onSetSortByMode }) => {
+   const [internalShortByMode, setInternalShortByMode] = React.useState(0);
    const handleChange = (event) => {
-      setAge(event.target.value);
+      onSetSortByMode(event.target.value);
+      setInternalShortByMode(event.target.value);
    };
 
    return (
@@ -12,7 +18,7 @@ const SortBy = () => {
          <Select
             labelId="sorting"
             id="sorting-picker"
-            value={null}
+            value={internalShortByMode}
             label="Default"
             onChange={handleChange}
             placeholder='Select...'
@@ -26,4 +32,10 @@ const SortBy = () => {
    )
 }
 
-export default SortBy
+const mapStateToProps = (state) => ({
+   shortByMode: state.shortBy.shortByMode
+})
+const mapDispatchToProps = {
+   onSetSortByMode: (sortmode) => setShortByMode(sortmode)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SortBy)
