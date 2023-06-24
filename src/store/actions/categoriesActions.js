@@ -21,7 +21,7 @@ export const fetchCategories = () => {
       dispatch(fetchCategoriesRequest())
       axios.get("http://localhost:8080/api/products/categories")
          .then((response) => {
-            const categories = response.data
+            const categories = ["All", ...response.data]
             dispatch(fetchCategoriesSuccess(categories))
          })
          .catch((error) => {
