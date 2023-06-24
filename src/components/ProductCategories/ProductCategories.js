@@ -2,13 +2,20 @@ import * as React from 'react';
 import { useState } from 'react';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
-
-export default function ProductCategories({ ProductCategories = ['ALL', 'APPAREL', 'ELECTRONICS', 'PERSONAL CARE'] }) {
+import { useEffect } from 'react';
+import { fetchCategories } from '../../store/actions/categoriesActions'
+import { connect } from 'react-redux';
+function ProductCategories({ ProductCategories, onFetchCategories }) {
    const [selectedCategory, setSelectedCategory] = useState('ELECTRONICS');
 
    const handleChange = (event, newSelectedCategory) => {
       setSelectedCategory(newSelectedCategory);
    };
+
+   useEffect(() => {
+      onFetchCategories()
+   }, [ProductCategories])
+
    return (
       <ToggleButtonGroup
          color="primary"
@@ -22,3 +29,14 @@ export default function ProductCategories({ ProductCategories = ['ALL', 'APPAREL
       </ToggleButtonGroup>
    );
 }
+const mapStateToProps = (state) => {
+   return {
+      ProductCategories: state.categories.categories
+   }
+}
+const mapDispatchToProps = (dispatch) => {
+   return {
+      onFetchCategories: () => dispatch(fetchCategories())
+   }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCategories)

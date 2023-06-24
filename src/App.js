@@ -6,7 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 
 import LogInPage from './components/SignInPage/LogInPage';
 import SignUpPage from './components/SignUpPage/SignUpPage';
-import ProductPage from './components/ProductsPages/ProductPage';
+import ProductPage from './screens/ProductPage';
 
 
 function App() {
