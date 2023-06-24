@@ -11,9 +11,20 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
+// { Itemname = "Shoes", 
+// ItemPrice = "1000", 
+// Description = "This is a shoe", 
+// ItemImg = "https://placehold.co/600x400/EEE/31343C", 
+// isAdmin = false }
+export default function ProductCard({ product, isAdmin }) {
+  const { id, name, category, price, description, manufacturer, availableItems, imageUrl } = product
+  const [Itemname, setItemname] = useState(name)
+  const [ItemPrice, setItemPrice] = useState(price)
+  const [Description, setDescription] = useState(description)
+  const [ItemImg, setItemImg] = useState(imageUrl)
 
-export default function ProductCard({ Itemname = "Shoes", ItemPrice = "1000", Description = "This is a shoe", ItemImg = "https://placehold.co/600x400/EEE/31343C", isAdmin = false }) {
-  const maxCardWidth = useState(260)
+
+  const maxCardWidth = useState(400)
   const maxImageHeight = useState(200)
   return (
     <Card sx={{ maxWidth: maxCardWidth }}>
@@ -29,7 +40,7 @@ export default function ProductCard({ Itemname = "Shoes", ItemPrice = "1000", De
             {Itemname}
           </Typography>
           <Typography gutterBottom variant="h6" component="div">
-            {"₹ " + ItemPrice}
+            {"$ " + ItemPrice}
           </Typography>
         </Stack>
         <Typography variant="body2" color="text.secondary">
