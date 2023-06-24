@@ -16,6 +16,13 @@ export const fetchCategoriesFailed = (error) => {
       payload: error
    }
 }
+export const setFilterByCategory = (category) => {
+   return {
+      type: "SET_FILTER_BY_CATEGORY",
+      payload: category
+   }
+}
+
 export const fetchCategories = () => {
    return (dispatch) => {
       dispatch(fetchCategoriesRequest())

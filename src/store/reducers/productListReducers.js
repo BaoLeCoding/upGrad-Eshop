@@ -2,7 +2,8 @@ const initalState = {
    products: [],
    loading: false,
    error: null,
-   
+   filterByCategory: null,
+   sortByMode: null
 }
 
 export const productListReducer = (state = initalState, action) => {

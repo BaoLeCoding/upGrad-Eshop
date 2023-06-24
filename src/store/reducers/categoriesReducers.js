@@ -1,7 +1,8 @@
 const initialState = {
    categories: [],
    isLoading: false,
-   error: null
+   error: null,
+   filterByCategory: "All"
 }
 
 export default (state = initialState, action) => {
@@ -24,6 +25,12 @@ export default (state = initialState, action) => {
             ...state,
             isLoading: false,
             error: action.payload
+         }
+      case "SET_FILTER_BY_CATEGORY":
+         console.log("Reducer- set category filter ")
+         return {
+            ...state,
+            filterByCategory: action.payload
          }
       default:
          {

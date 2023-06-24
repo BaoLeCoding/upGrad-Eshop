@@ -3,26 +3,30 @@ import { useState } from 'react';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import { useEffect } from 'react';
-import { fetchCategories } from '../../store/actions/categoriesActions'
+import { fetchCategories, setFilterByCategory } from '../../store/actions/categoriesActions'
 import { connect } from 'react-redux';
-function ProductCategories({ ProductCategories, onFetchCategories }) {
-   const [selectedCategory, setSelectedCategory] = useState('ELECTRONICS');
+function ProductCategories({ ProductCategories, onFetchCategories, onSetFilterByCategory }) {
+   console.log(ProductCategories)
+   const [selectedCategory, setSelectedCategory] = useState("All");
 
    const handleChange = (event, newSelectedCategory) => {
-      setSelectedCategory(newSelectedCategory);
+      if (newSelectedCategory !== null) {
+         setSelectedCategory(newSelectedCategory);
+         onSetFilterByCategory(newSelectedCategory);
+      }
    };
 
    useEffect(() => {
       onFetchCategories()
-   }, [ProductCategories])
+   }, [])
 
    return (
       <ToggleButtonGroup
          color="primary"
          value={selectedCategory}
-         exclusive
          onChange={handleChange}
          aria-label="Category"
+         exclusive="true"
       >
          {ProductCategories.map((category) => (<ToggleButton value={category} >{category}</ToggleButton >))}
 
@@ -36,7 +40,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
    return {
-      onFetchCategories: () => dispatch(fetchCategories())
+      onFetchCategories: () => dispatch(fetchCategories()),
+      onSetFilterByCategory: (category) => dispatch(setFilterByCategory(category))
    }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCategories)
