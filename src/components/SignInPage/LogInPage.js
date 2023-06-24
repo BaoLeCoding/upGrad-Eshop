@@ -10,12 +10,15 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import { fetchSignIn } from "../../store/actions/authActions"
 import CircularProgress from '@mui/material/CircularProgress';
+import { Navigate } from "react-router-dom"
 
 const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   return (
+
     <Stack spacing={2} alignItems={"center"}>
+      {isLogin ? <Navigate to="/" /> : null}
       <LockIcon color="error" />
       <Typography variant="h3">
         Sign In
@@ -32,7 +35,7 @@ const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn })
         <Button variant="contained" onClick={() => onSignIn(email, password)}>SIGN IN</Button>
       }
       <Alert severity="info">Admin User: Admin@gmail.com.vn | Password: 1234abcdef</Alert>
-      <Typography variant='body'><Link to="/signup">Don't have an account? Sign Up 
+      <Typography variant='body'><Link to="/signup">Don't have an account? Sign Up
       </Link></Typography>
 
     </Stack>

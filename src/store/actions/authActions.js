@@ -60,8 +60,9 @@ export const fetchSignIn = (email, password) => {
             localStorage.setItem("token", token)
             // since no get user info by token api, so we just use email to indicate Admin login, further improvement can be made here
             let isAdmin = email === "Admin@gmail.com.vn" ? true : false
-
+           
             dispatch(signInSuccess({ token, isAdmin }))
+            
          }
          ).catch(error => dispatch(signInFailed(error)))
 

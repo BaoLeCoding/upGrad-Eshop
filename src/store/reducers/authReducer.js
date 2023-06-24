@@ -1,4 +1,3 @@
-
 const initialState = {
    isLogin: false,
    isAdmin: false,
@@ -8,7 +7,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-   console.log(action)
+
    switch (action.type) {
       case 'SIGN_IN_REQUEST':
          return {
@@ -20,6 +19,7 @@ export default (state = initialState, action) => {
             token: null
          }
       case 'SIGN_IN_SUCCESS':
+         
          return {
             ...state,
             isLogin: true,
