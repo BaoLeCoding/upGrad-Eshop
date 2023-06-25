@@ -2,9 +2,11 @@ import React, { Fragment } from 'react'
 import { Box, Button, Stepper, Step, StepLabel, Typography, Container } from '@mui/material'
 import { useState } from 'react'
 import ItemSummary from '../components/OrderPageItemSummary/ItemSummary';
+import { connect } from 'react-redux'
+import AddressForm from '../components/OrderPageAddressForm/AddressForm';
 
 const steps = ['Items', 'Select Address', 'Confirm Order'];
-const OrderPage = ({ orderQuantity = 12, product = { "price": 100 } }) => {
+const OrderPage = ({ orderQuantity, product }) => {
    const [activeStep, setActiveStep] = React.useState(0);
    const [skipped, setSkipped] = React.useState(new Set());
 
@@ -88,6 +90,7 @@ const OrderPage = ({ orderQuantity = 12, product = { "price": 100 } }) => {
                   {/* Step content */}
                   <Typography sx={{ mt: 2, mb: 1 }}>Current step: {activeStep + 1}</Typography>
                   {activeStep === 0 && <ItemSummary />}
+                  {activeStep === 1 && <AddressForm />}
                   <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                      <Button
                         color="inherit"
@@ -115,4 +118,11 @@ const OrderPage = ({ orderQuantity = 12, product = { "price": 100 } }) => {
    )
 }
 
-export default OrderPage
+const mapStateToProps = (state) => ({
+   orderQuantity: state.orderPage.orderQuantity,
+   product: state.orderPage.product
+})
+// const mapDispatchToProps = {
+//    return 
+// }
+export default connect(mapStateToProps)(OrderPage)

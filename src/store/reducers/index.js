@@ -5,6 +5,7 @@ import { productListReducer } from './productListReducers';
 import { shortByReducer } from './shortByReducer'
 import { searchBarReducer } from './searchBarReducer'
 import { productDetailReducer } from './productDetailReducer'
+import { orderPageReducer } from './orderPageReducer'
 
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
    productList: productListReducer,
    shortBy: shortByReducer,
    searchBar: searchBarReducer,
-   productDetail: productDetailReducer
+   productDetail: productDetailReducer,
+   orderPage: orderPageReducer
 });

@@ -3,22 +3,27 @@ import React from 'react'
 import { Fragment } from 'react'
 import { TextField } from '@mui/material'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { fetchProductDetail } from '../store/actions/productDetailActions'
 import { connect } from 'react-redux'
 
-
 // product ={ id = "123", name = "Fjallraven - Foldsack", category = "men's clothing", price = "200", description = "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday", manufacturer = "crowdlean", availableItems = 78, imageUrl = "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" }
-const ProductDetailPage = ({ product, onFetchProductDetail }) => {
+const ProductDetailPage = ({ product, onFetchProductDetail, onSetOrderItem }) => {
 
    const [quantity, setQuantity] = useState(1)
+   const [toOrderPage, setToOrderPage] = useState(false)
    const handleChangeQuantity = (value) => {
       if (value > 0 && value <= availableItems) { setQuantity(value) }
    }
+   const handlePlaceOrder = () => {
+      onSetOrderItem(quantity, product)
+      setToOrderPage(true)
+      // console.log(quantity, product)
+   }
+
 
    const productId = useParams().id
-   console.log(productId)
    useEffect(() => {
       onFetchProductDetail(productId)
    }, [productId])
@@ -26,6 +31,7 @@ const ProductDetailPage = ({ product, onFetchProductDetail }) => {
 
    return (
       <Fragment>
+         {toOrderPage ? <Navigate to="/order" /> : null}
          <Container maxWidth="lg">
             {/* <h1>ProductDetailPage</h1> */}
             <Stack spacing={2} direction='row'>
@@ -49,7 +55,7 @@ const ProductDetailPage = ({ product, onFetchProductDetail }) => {
                      value={quantity}
                      onChange={(e) => handleChangeQuantity(e.target.value)}
                   />
-                  <Button variant="contained" onClick={() => { }}>PLACE ORDER</Button>
+                  <Button variant="contained" onClick={() => handlePlaceOrder()}>PLACE ORDER</Button>
                </Stack>
 
             </Stack>
@@ -63,7 +69,8 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => {
    return {
-      onFetchProductDetail: (id) => dispatch(fetchProductDetail(id))
+      onFetchProductDetail: (id) => dispatch(fetchProductDetail(id)),
+      onSetOrderItem: (orderQuantity, product) => dispatch({ type: 'SET_ORDER_ITEM', payload: { orderQuantity, product } })
    }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailPage)
