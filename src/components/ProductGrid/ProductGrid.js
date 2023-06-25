@@ -25,7 +25,6 @@ const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchIt
       default:
          break;
    }
-   console.log(searchItemName)
    filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().includes(searchItemName.toLowerCase()))
 
    return (

@@ -4,9 +4,13 @@ import ProductCategories from '../components/ProductCategories/ProductCategories
 import ProductGrid from '../components/ProductGrid/ProductGrid.js'
 import SortBy from '../components/SortBy/SortBy.js'
 import { Fragment } from 'react'
-import { Stack,Container } from '@mui/material'
+import { Stack, Container } from '@mui/material'
+import { BrowserRouter as Router, Switch, Routes, Route, Link } from "react-router-dom"
+import { useResolvedPath } from "react-router-dom"
 
 const ProductPage = () => {
+   const path = useResolvedPath("").pathname;
+
    return (
       <Fragment>
          <Container maxWidth="lg">

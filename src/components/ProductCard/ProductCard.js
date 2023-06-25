@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom'
 
 // { Itemname = "Shoes", 
 // ItemPrice = "1000", 
@@ -28,11 +29,13 @@ export default function ProductCard({ product, isAdmin }) {
   const maxImageHeight = useState(200)
   return (
     <Card sx={{ maxWidth: maxCardWidth }}>
-      <CardMedia
-        sx={{ height: maxImageHeight }}
-        image={ItemImg}
-        title={Itemname}
-      />
+      <Link to={`/${id}`} style={{ textDecoration: "none" }}>
+        <CardMedia
+          sx={{ height: maxImageHeight }}
+          image={ItemImg}
+          title={Itemname}
+        />
+      </Link>
       <CardContent>
 
         <Stack spacing={2} direction="row" style={{ display: "flex", marginLeft: 'auto' }}>
@@ -49,7 +52,10 @@ export default function ProductCard({ product, isAdmin }) {
       </CardContent>
 
       <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
-        <Button size="small" variant="contained" style={{ marginRight: "auto" }} >BUY</Button>
+        {/* Buy button link to product detail */
+          <Link to={`/${id}`} style={{ textDecoration: "none" }}>
+            <Button size="small" variant="contained" style={{ marginRight: "auto" }} >BUY</Button>
+          </Link>}
         {isAdmin &&
           <IconButton>
             <EditIcon />
