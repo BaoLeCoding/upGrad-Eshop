@@ -58,11 +58,20 @@ export const fetchSignIn = (email, password) => {
             let token = response.data.token
             //save token to local storage
             localStorage.setItem("token", token)
-            // since no get user info by token api, so we just use email to indicate Admin login, further improvement can be made here
-            let isAdmin = email === "Admin@gmail.com.vn" ? true : false
-           
-            dispatch(signInSuccess({ token, isAdmin }))
-            
+            // NOte: since API does not return user information or tokenbase fetch information, we fetch all user the filter by email
+            // fetch user information
+            let user = null
+            let isAdmin = null
+            let userId = null
+            axios.get("http://localhost:8080/api/users", { headers: { Authorization: `Bearer ${token}` } })
+               .then((response) => {
+                  user = response.data.filter(user => user.email === email)
+                  isAdmin = user[0].roles[0].name === "ADMIN"
+                  userId = user[0].id
+                  localStorage.setItem("userId", userId)
+                  dispatch(signInSuccess({ token, isAdmin, userId }))
+               }
+               ).catch(error => dispatch(signInFailed(error)))
          }
          ).catch(error => dispatch(signInFailed(error)))
 

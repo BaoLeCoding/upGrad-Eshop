@@ -6,6 +6,7 @@ import { shortByReducer } from './shortByReducer'
 import { searchBarReducer } from './searchBarReducer'
 import { productDetailReducer } from './productDetailReducer'
 import { orderPageReducer } from './orderPageReducer'
+import { addressFormReducer } from './addressFormReducer'
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
    shortBy: shortByReducer,
    searchBar: searchBarReducer,
    productDetail: productDetailReducer,
-   orderPage: orderPageReducer
+   orderPage: orderPageReducer,
+   savedAddresses: addressFormReducer
 });

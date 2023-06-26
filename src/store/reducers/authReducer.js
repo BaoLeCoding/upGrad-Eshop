@@ -3,7 +3,8 @@ const initialState = {
    isAdmin: false,
    isRequestLogin: false,
    token: null,
-   error: null
+   error: null,
+   userId: null
 }
 
 export default (state = initialState, action) => {
@@ -19,14 +20,15 @@ export default (state = initialState, action) => {
             token: null
          }
       case 'SIGN_IN_SUCCESS':
-         
+         console.log(action.payload)
          return {
             ...state,
             isLogin: true,
             isAdmin: action.payload.isAdmin,
             isRequestLogin: false,
             error: null,
-            token: action.payload.token
+            token: action.payload.token,
+            userId: action.payload.userId
          }
       case 'SIGN_IN_FAILED':
          return {

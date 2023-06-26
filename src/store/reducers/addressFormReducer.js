@@ -25,13 +25,14 @@ export const addressFormReducer = (state = initialState, action) => {
       case "ADD_NEW_ADDRESS_REQUEST":
          return {
             ...state,
-            loading: true
+            loading: true,
+            error: null
          }
       case "ADD_NEW_ADDRESS_SUCCESS":
          return {
             ...state,
             loading: false,
-            savedAddresses: action.payload
+            error: null
          }
       case "ADD_NEW_ADDRESS_FAIL":
          return {

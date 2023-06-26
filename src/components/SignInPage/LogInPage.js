@@ -13,8 +13,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Navigate } from "react-router-dom"
 
 const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn }) => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("Admin@gmail.com.vn");
+  const [password, setPassword] = React.useState("1234abcdef");
   return (
 
     <Stack spacing={2} alignItems={"center"}>

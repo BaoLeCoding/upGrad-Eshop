@@ -1,25 +1,73 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { FormControl, InputLabel, Select, MenuItem, FormLabel, TextField, Button } from '@mui/material';
+import { fetchSavedAddress, postNewAddress } from '../../store/actions/addressFormActions';
+import { connect } from 'react-redux';
+import { setStep2Valid } from '../../store/actions/addressFormActions';
+import { setDeviveryAddress } from '../../store/actions/addressFormActions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const AddressForm = () => {
-   const [selectSavedAddress, setAge] = React.useState('');
+const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSavedAddress, onSetStep2Valid, onPostNewAddress, onSetDeviveryAddress }) => {
+   const [selectSavedAddress, setSelectedSavedAddress] = React.useState('');
+   const [addressId, setAddressId] = React.useState('');
    // Create controlled form inputs
-   const [name, setName] = React.useState('');
-   const [contactNumber, setContactNumber] = React.useState('');
-   const [street, setStreet] = React.useState('');
-   const [city, setCity] = React.useState('');
-   const [state, setState] = React.useState('');
-   const [landmark, setLandmark] = React.useState('');
-   const [zipCode, setZipCode] = React.useState('');
+   const [name, setName] = React.useState(deiveryAddress.name);
+   const [contactNumber, setContactNumber] = React.useState(deiveryAddress.contactNumber);
+   const [street, setStreet] = React.useState(deiveryAddress.street);
+   const [city, setCity] = React.useState(deiveryAddress.city);
+   const [state, setState] = React.useState(deiveryAddress.state);
+   const [landmark, setLandmark] = React.useState(deiveryAddress.landmark);
+   const [zipCode, setZipCode] = React.useState(deiveryAddress.zipcode);
 
    const handleSelectSavedAddress = (event) => {
-      setAge(event.target.value);
+      setSelectedSavedAddress(event.target.value);
+      // get selected address from saved addresses array
+      const selectedAddress = savedAddresses.find((address) => address.id === event.target.value);
+      // set form inputs to selected address
+      updateInternalAdressState(selectedAddress);
+
    };
+   const updateInternalAdressState = (selectedAddress, callback) => {
+      setAddressId(selectedAddress.id);
+      setName(selectedAddress.name);
+      setContactNumber(selectedAddress.contactNumber);
+      setStreet(selectedAddress.street);
+      setCity(selectedAddress.city);
+      setState(selectedAddress.state);
+      setLandmark(selectedAddress.landmark);
+      setZipCode(selectedAddress.zipcode);
+   }
+   useEffect(() => { checkValidToContinue() }, [selectSavedAddress]);
+   const checkValidToContinue = () => {
+      // To continue, the form must be all filled out
+      console.log("form is valid")
+      if (name && contactNumber && street && city && state && landmark && zipCode) {
+         console.log("form is valid")
+         const address = {
+            "addressId": addressId,
+            "name": name,
+            "contactNumber": contactNumber,
+            "street": street,
+            "city": city,
+            "state": state,
+            "landmark": landmark,
+            "zipcode": zipCode
+         }
+         onSetDeviveryAddress(address);
+         onSetStep2Valid(true);
+
+         return true;
+      }
+      return false;
+   }
+
+   useEffect(() => {
+      onFetchSavedAddress();
+   }, []);
    const handleFormInutChange = (event) => {
       const { name, value } = event.target;
       switch (name) {
          case 'name':
-            console.log('name', value);
             setName(value);
             break;
          case 'contactNumber':
@@ -43,10 +91,41 @@ const AddressForm = () => {
          default:
             break;
       }
+      //check if form is valid to continue
+      if (checkValidToContinue()) {
+         onSetStep2Valid(true);
+      }
    }
 
+   const handleSaveAddress = () => {
+      // create address object from all input fields
+      const address = {
+         "name": name,
+         "contactNumber": contactNumber,
+         "street": street,
+         "city": city,
+         "state": state,
+         "landmark": landmark,
+         "zipcode": zipCode
+      }
+      // dispatch action to save address
+      onPostNewAddress(address);
+      //reload address
+      onFetchSavedAddress()
+   }
+   const showError = () => {
+      toast.error('Something went wrong, cannot add your address!', {
+         position: toast.POSITION.TOP_RIGHT
+      });
+   };
+   useEffect(() => {
+      if (error) {
+         showError();
+      }
+   }, [error]);
    return (
       <Fragment>
+         <ToastContainer />
          <FormControl fullWidth >
             <InputLabel id="select-address-label">Select Address</InputLabel>
             <Select
@@ -56,19 +135,21 @@ const AddressForm = () => {
                label="Address"
                onChange={handleSelectSavedAddress}
             >
-               <MenuItem value={10}>Ten</MenuItem>
-               <MenuItem value={20}>Twenty</MenuItem>
-               <MenuItem value={30}>Thirty</MenuItem>
+               {/* saved address array to selection options */}
+
+               {savedAddresses && savedAddresses.map((address) => {
+                  return <MenuItem key={address.id} value={address.id}>{`${address.name} - ${address.contactNumber} - ${address.landmark}, ${address.street}, ${address.state}`}</MenuItem>
+               })}
             </Select>
             <FormLabel>Add Address</FormLabel>
             <TextField placeholder='Name*' name="name" value={name} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='ContactNumber*' name="contactNumber" value={contactNumber}></TextField>
-            <TextField placeholder='Street*' name="street" value={street}></TextField>
-            <TextField placeholder='City*' name="city" value={city}></TextField>
-            <TextField placeholder='State*' name="state" value={state}></TextField>
-            <TextField placeholder='Landmark*' name="landmark" value={landmark}></TextField>
-            <TextField placeholder='Zip Code*' name="landmark" value={zipCode}></TextField>
-            <Button variant='contained'>SAVE ADDRESS</Button>
+            <TextField placeholder='ContactNumber*' name="contactNumber" value={contactNumber} onChange={handleFormInutChange}></TextField>
+            <TextField placeholder='Street*' name="street" value={street} onChange={handleFormInutChange}></TextField>
+            <TextField placeholder='City*' name="city" value={city} onChange={handleFormInutChange}></TextField>
+            <TextField placeholder='State*' name="state" value={state} onChange={handleFormInutChange}></TextField>
+            <TextField placeholder='Landmark*' name="landmark" value={landmark} onChange={handleFormInutChange}></TextField>
+            <TextField placeholder='Zip Code*' name="zipCode" value={zipCode} onChange={handleFormInutChange}></TextField>
+            <Button variant='contained' onClick={handleSaveAddress} >SAVE ADDRESS</Button>
 
          </FormControl>
 
@@ -77,4 +158,21 @@ const AddressForm = () => {
    )
 }
 
-export default AddressForm
+const mapStateToProps = (state) => {
+   return {
+      savedAddresses: state.savedAddresses.savedAddresses,
+      loading: state.savedAddresses.loading,
+      error: state.savedAddresses.error,
+      deiveryAddress: state.orderPage.deriveryAddress
+
+   }
+}
+const mapDispatchToProps = (dispatch) => {
+   return {
+      onFetchSavedAddress: () => dispatch(fetchSavedAddress()),
+      onSetStep2Valid: (value) => dispatch(setStep2Valid(value)),
+      onPostNewAddress: (addressobj) => dispatch(postNewAddress(addressobj)),
+      onSetDeviveryAddress: (addressobj) => dispatch(setDeviveryAddress(addressobj))
+   }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddressForm)

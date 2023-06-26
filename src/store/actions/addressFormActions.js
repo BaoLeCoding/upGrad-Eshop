@@ -1,3 +1,4 @@
+import axios from 'axios'
 //define action to fetch saved address and push new address via API call
 export const saveAddressRequest = () => {
    return {
@@ -18,7 +19,7 @@ export const saveAddressFail = (error) => {
 }
 export const addNewAddressRequest = () => {
    return {
-      type: "ADD_NEW_ADDRESS_REQUEST"
+      type: "ADD_NEW_ADDRESS_REQUEST",
    }
 }
 export const addNewAddressSuccess = (data) => {
@@ -33,10 +34,24 @@ export const addNewAddressFail = (error) => {
       payload: error
    }
 }
+export const setStep2Valid = (data) => {
+   return {
+      type: "SET_STEP2_VALID",
+      payload: data
+   }
+}
+export const setDeviveryAddress = (data) => {
+   return {
+      type: "SET_DELIVERY_ADDRESS",
+      payload: data
+   }
+}
+
+
 export const fetchSavedAddress = () => {
    return (dispatch) => {
       dispatch(saveAddressRequest())
-      axios.get(`http://localhost:8080/api/address`)
+      axios.get(`http://localhost:8080/api/addresses`, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
          .then(res => {
             dispatch(saveAddressSuccess(res.data))
          })
@@ -48,7 +63,8 @@ export const fetchSavedAddress = () => {
 export const postNewAddress = (data) => {
    return (dispatch) => {
       dispatch(addNewAddressRequest())
-      axios.post(`http://localhost:8080/api/address`, data)
+      data = { ...data, user: localStorage.getItem('userId') }
+      axios.post(`http://localhost:8080/api/addresses`, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
          .then(res => {
             dispatch(addNewAddressSuccess(res.data))
          })

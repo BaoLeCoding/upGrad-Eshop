@@ -12,12 +12,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom'
 
-// { Itemname = "Shoes", 
-// ItemPrice = "1000", 
-// Description = "This is a shoe", 
-// ItemImg = "https://placehold.co/600x400/EEE/31343C", 
-// isAdmin = false }
-export default function ProductCard({ product, isAdmin }) {
+let demoData = {
+  "Itemname": "Shoes",
+  "ItemPrice": "1000",
+  "Description": "This is a shoe",
+  "ItemImg": "https://placehold.co/600x400/EEE/31343C"
+}
+
+export default function ProductCard({ product = demoData, isAdmin = false }) {
   const { id, name, category, price, description, manufacturer, availableItems, imageUrl } = product
   const [Itemname, setItemname] = useState(name)
   const [ItemPrice, setItemPrice] = useState(price)
