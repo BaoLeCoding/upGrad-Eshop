@@ -10,6 +10,7 @@ import ProductPage from './screens/ProductPage';
 import ProductDetailPage from './screens/ProductDetailPage';
 import MainPageContents from './screens/MainPageContents';
 import OrderPage from './screens/OrderPage';
+import IsolatedTest from './screens/IsolatedTest';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
 
         <Route path="login" element={<LogInPage />} />
         <Route path="signup" element={<SignUpPage />} />
+        <Route path="test" element={<IsolatedTest />} />
       </Routes>
       {/* TODO: What if logged in but type Sign up/login without log out? */}
     </div>

@@ -7,6 +7,7 @@ import { searchBarReducer } from './searchBarReducer'
 import { productDetailReducer } from './productDetailReducer'
 import { orderPageReducer } from './orderPageReducer'
 import { addressFormReducer } from './addressFormReducer'
+import productCardReducer from './productCardReducer'
 
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
    searchBar: searchBarReducer,
    productDetail: productDetailReducer,
    orderPage: orderPageReducer,
-   savedAddresses: addressFormReducer
+   savedAddresses: addressFormReducer,
+   productCard: productCardReducer
 });

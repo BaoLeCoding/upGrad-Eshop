@@ -1,14 +1,14 @@
+// first try to get from local storage if not found then set default value
 const initialState = {
-   isLogin: false,
-   isAdmin: false,
+   isLogin: localStorage.getItem("isLogin") === "true" ? true : false,
+   isAdmin: localStorage.getItem("isAdmin") === "true" ? true : false,
    isRequestLogin: false,
-   token: null,
+   token: localStorage.getItem("token"),
    error: null,
-   userId: null
+   userId: localStorage.getItem("userId")
 }
 
 export default (state = initialState, action) => {
-
    switch (action.type) {
       case 'SIGN_IN_REQUEST':
          return {
@@ -20,7 +20,11 @@ export default (state = initialState, action) => {
             token: null
          }
       case 'SIGN_IN_SUCCESS':
-         console.log(action.payload)
+         localStorage.setItem("userId", action.payload.userId)   
+         localStorage.setItem("token", action.payload.token)
+         localStorage.setItem("isAdmin", action.payload.isAdmin)
+         localStorage.setItem("isLogin", true)
+         
          return {
             ...state,
             isLogin: true,
@@ -41,6 +45,10 @@ export default (state = initialState, action) => {
 
          }
       case 'SIGN_OUT':
+         localStorage.removeItem("userId")
+         localStorage.removeItem("token")
+         localStorage.removeItem("isAdmin")
+         localStorage.removeItem("isLogin")
          return {
             ...state,
             isLogin: false,

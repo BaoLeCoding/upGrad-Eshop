@@ -68,7 +68,6 @@ export const fetchSignIn = (email, password) => {
                   user = response.data.filter(user => user.email === email)
                   isAdmin = user[0].roles[0].name === "ADMIN"
                   userId = user[0].id
-                  localStorage.setItem("userId", userId)
                   dispatch(signInSuccess({ token, isAdmin, userId }))
                }
                ).catch(error => dispatch(signInFailed(error)))

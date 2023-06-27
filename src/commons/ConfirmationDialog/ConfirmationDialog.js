@@ -5,18 +5,23 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useEffect } from 'react';
 
-export default function AlertDialog({ title, mssg, confirmBtnText, onConfirmAction, declineBtnText, onDeclineAction }) {
+export default function ConfirmationDialog({ title, mssg, confirmBtnText = "OK", onConfirmAction, declineBtnText = "Cancel", onDeclineAction = () => { }, resetFunction }) {
    const [open, setOpen] = React.useState(true);
    const handleClose = (userDecision) => {
       setOpen(false);
       if (userDecision) {
-         onConfirmAction()
+         onConfirmAction(setOpen)
+
       }
       else {
-         onDeclineAction()
+         onDeclineAction(setOpen)
       }
+      console.log("call reset function")
+      resetFunction()
    };
+
 
    return (
       <div>

@@ -30,7 +30,7 @@ const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchIt
    return (
       <Fragment>
          <div>ProductGrid</div>
-         <Stack direction="row" display="flex" spacing={15} style={{ "flex": 1, "flex-wrap": "wrap", "justify-content": "flex-end", "margin": "15px 15px", "padding": "15px", "row-gap": "3em", "column-gap": "3em" }}>
+         <Stack direction="row" display="flex" spacing={15} style={{ "flex": 1, "flex-wrap": "wrap", "justify-content": "flex-end", "margin": "15px 15px", "padding": "15px", "rowGap": "1em", "columnGap": "1em" }}>
 
             {filteredProducts.map((product) => {
                return (

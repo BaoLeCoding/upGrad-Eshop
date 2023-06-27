@@ -27,7 +27,7 @@ function ProductCategories({ ProductCategories, onFetchCategories, onSetFilterBy
          aria-label="Category"
          exclusive="true"
       >
-         {ProductCategories.map((category) => (<ToggleButton value={category} >{category}</ToggleButton >))}
+         {ProductCategories.map((category, index) => (<ToggleButton key={index} value={category} >{category}</ToggleButton >))}
 
       </ToggleButtonGroup>
    );
