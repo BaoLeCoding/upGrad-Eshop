@@ -25,7 +25,7 @@ function ProductCategories({ ProductCategories, onFetchCategories, onSetFilterBy
          value={selectedCategory}
          onChange={handleChange}
          aria-label="Category"
-         exclusive="true"
+         exclusive={true}
       >
          {ProductCategories.map((category, index) => (<ToggleButton key={index} value={category} >{category}</ToggleButton >))}
 

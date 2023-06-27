@@ -27,7 +27,7 @@ let demoData = {
   "imageUrl": "https://placehold.co/600x400/EEE/31343C"
 }
 
-export default function ProductCard({ product = demoData, isAdmin = false, callBackActionOnDeletion }) {
+function ProductCard({ product = demoData, isAdmin = false, onRequestConfirmItemDeletion }) {
   const { id, name, category, price, description, manufacturer, availableItems, imageUrl } = product
   const [Itemname, setItemname] = useState(name)
   const [ItemPrice, setItemPrice] = useState(price)
@@ -37,38 +37,37 @@ export default function ProductCard({ product = demoData, isAdmin = false, callB
 
   const maxCardWidth = useState(400)
   const maxImageHeight = useState(200)
-  const [confirmingDeletion, setConfirmingDeletion] = useState(false)
-  const [showConfirmationDlg, setShowConfirmationDlg] = useState(false)
-  const [openDialogFnc, setOpenDialogFnc] = useState()
+
+  // const [confirmingDeletion, setConfirmingDeletion] = useState(false)
+  // const [showConfirmationDlg, setShowConfirmationDlg] = useState(false)
+  // const [openDialogFnc, setOpenDialogFnc] = useState()
   // console.log(openDialogFnc)
+  // let handleDeleteCallback = () => {
+  //   // console.log("handleDeleteCallback")
+  //   if (openDialogFnc) {
+  //     // console.log("call openDialogFnc")
+  //     openDialogFnc(true)
+  //   }
+  //   setConfirmingDeletion(true)
+  // }
 
-  let handleDeleteCallback = () => {
-    // console.log("handleDeleteCallback")
-    if (openDialogFnc) {
-      // console.log("call openDialogFnc")
-      openDialogFnc(true)
-    }
-    setConfirmingDeletion(true)
-  }
-
-  let handleConfirmDeletion = (setOpenDialogFnc) => {
-    // console.log("handleConfirmDeletion")
-    setConfirmingDeletion(false)
-    setOpenDialogFnc(setOpenDialogFnc)
-  }
+  // let handleConfirmDeletion = (setOpenDialogFnc) => {
+  //   // console.log("handleConfirmDeletion")
+  //   setConfirmingDeletion(false)
+  //   setOpenDialogFnc(setOpenDialogFnc)
+  // }
 
 
-  useEffect(() => {
-    if (confirmingDeletion) {
-      // console.log("confirmingDeletion")
-      setShowConfirmationDlg(true)
-    }
-  }, [confirmingDeletion])
+  // useEffect(() => {
+  //   if (confirmingDeletion) {
+  //     // console.log("confirmingDeletion")
+  //     setShowConfirmationDlg(true)
+  //   }
+  // }, [confirmingDeletion])
 
   return (
 
     <Card sx={{ maxWidth: maxCardWidth }}>
-      {showConfirmationDlg && <ConfirmationDialog title="Confirm item deletion" mssg="Please confirm your deletion?" onConfirmAction={handleConfirmDeletion} resetFunction={() => setConfirmingDeletion(false)} />}
       <Link to={`/${id}`} style={{ textDecoration: "none" }}>
         <CardMedia
           sx={{ height: maxImageHeight }}
@@ -100,7 +99,7 @@ export default function ProductCard({ product = demoData, isAdmin = false, callB
             <EditIcon />
           </IconButton>}
         {isAdmin &&
-          <IconButton onClick={() => handleDeleteCallback()}>
+          <IconButton onClick={(e) => onRequestConfirmItemDeletion(id)}>
             <DeleteIcon />
           </IconButton>}
       </CardActions>
@@ -119,10 +118,9 @@ export default function ProductCard({ product = demoData, isAdmin = false, callB
 //   }
 // }
 
-// let mapDispatchToProps = (dispatch) => {
-//   return {
-//     onRequestConfirmItemDeletion: () => dispatch(requestConfirmItemDeletion()),
-//     onConfirmItemDeletion: () => dispatch(confirmItemDeletion())
-//   }
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(ProductCard)
+let mapDispatchToProps = (dispatch) => {
+  return {
+    onRequestConfirmItemDeletion: (id) => dispatch(requestConfirmItemDeletion(id))
+  }
+}
+export default connect(null, mapDispatchToProps)(ProductCard)

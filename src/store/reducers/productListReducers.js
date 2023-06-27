@@ -1,10 +1,14 @@
+
 const initalState = {
    products: [],
    loading: false,
    error: null,
    filterByCategory: null,
-   sortByMode: null
+   sortByMode: null,
+   openDlgCofirmDelete: false,
+   itemIdToDelete: null
 }
+
 
 export const productListReducer = (state = initalState, action) => {
    switch (action.type) {
@@ -24,6 +28,23 @@ export const productListReducer = (state = initalState, action) => {
             ...state,
             loading: false,
             error: action.payload
+         }
+      case "CONFIRMING_ITEM_DELETION":
+         return {
+            ...state,
+            openDlgCofirmDelete: true,
+            itemIdToDelete: action.payload
+         }
+      case "CONFIRMED_ITEM_DELETION":
+         return {
+            ...state,
+            openDlgCofirmDelete: false
+         }
+      case "CANCEL_ITEM_DELETION":
+         return {
+            ...state,
+            openDlgCofirmDelete: false,
+            itemIdToDelete: null
          }
       default:
          return state

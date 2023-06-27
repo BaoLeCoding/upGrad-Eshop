@@ -2,12 +2,14 @@ import React, { Fragment } from 'react'
 import ProductCard from '../ProductCard/ProductCard'
 import { Stack } from '@mui/material'
 import { connect } from 'react-redux'
-import { fetchProductList } from "../../store/actions/productListActions"
+import { fetchProductList, confirmItemDeletion, cancelItemDeletion } from "../../store/actions/productListActions"
 import { useEffect } from 'react'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material'
+import { requestDeleteProduct } from "../../store/actions/productListActions"
 
 
-const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchItemName, onfetchProductList }) => {
-
+const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchItemName, openDlgCofirmDelete, onConfirmItemDeletion, itemIdToDelete, onRequestDeleteProduct, onCancelItemDeletion, onfetchProductList }) => {
+   const [dlgOpen, setDlgOpen] = React.useState(false);
    useEffect(() => {
       onfetchProductList()
    }, [filterByCategory, sortByMode, searchItemName])
@@ -26,11 +28,50 @@ const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchIt
          break;
    }
    filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().includes(searchItemName.toLowerCase()))
+   const handleClose = () => {
+   };
+   useEffect(() => {
+      if (openDlgCofirmDelete) {
+         setDlgOpen(true)
+      }
+   }, [openDlgCofirmDelete])
+
+   let handleCloseDlg = (userChoice) => {
+      setDlgOpen(false)
+      if (userChoice) {
+         console.log('confirmed deletion');
+         onConfirmItemDeletion()
+         onRequestDeleteProduct(itemIdToDelete)
+      }
+      else {
+         console.log('declined deletion');
+         onCancelItemDeletion()
+      }
+   }
 
    return (
       <Fragment>
+         <Dialog
+            open={dlgOpen}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+         >
+            <DialogTitle id="alert-dialog-title">
+               {"Do you really want to delete this item?"}
+            </DialogTitle>
+            <DialogContent>
+               <DialogContentText id="alert-dialog-description">
+                  Please confirm deletion?
+               </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+               <Button onClick={() => handleCloseDlg(false)}>Cancel</Button>
+               <Button onClick={() => handleCloseDlg(true)} autoFocus> Confirm </Button>
+            </DialogActions>
+         </Dialog>
          <div>ProductGrid</div>
-         <Stack direction="row" display="flex" spacing={15} style={{ "flex": 1, "flex-wrap": "wrap", "justify-content": "flex-end", "margin": "15px 15px", "padding": "15px", "rowGap": "1em", "columnGap": "1em" }}>
+         <Stack direction="row" display="flex" spacing={15} style={{ "flex": 1, "flexWrap": "wrap", "justifyContent": "flex-end", "margin": "15px 15px", "padding": "15px", "rowGap": "1em", "columnGap": "1em" }}>
 
             {filteredProducts.map((product) => {
                return (
@@ -48,12 +89,17 @@ let mapStateToProps = (state) => {
       isAdmin: state.auth.isAdmin,
       filterByCategory: state.categories.filterByCategory,
       sortByMode: state.shortBy.shortByMode,
-      searchItemName: state.searchBar.searchItemName
+      searchItemName: state.searchBar.searchItemName,
+      openDlgCofirmDelete: state.productList.openDlgCofirmDelete,
+      itemIdToDelete: state.productList.itemIdToDelete
    }
 }
 let mapDispatchToProps = (dispatch) => {
    return {
-      onfetchProductList: () => dispatch(fetchProductList())
+      onfetchProductList: () => dispatch(fetchProductList()),
+      onConfirmItemDeletion: (id) => dispatch(confirmItemDeletion(id)),
+      onCancelItemDeletion: () => dispatch(cancelItemDeletion()),
+      onRequestDeleteProduct: (productId) => dispatch(requestDeleteProduct(productId))
    }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProductGrid)

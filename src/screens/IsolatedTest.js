@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductCard from '../components/ProductCard/ProductCard'
+import AddProduct from './AddProduct'
 
 const IsolatedTest = () => {
    let callActionDelete = (id) => {
@@ -7,7 +7,7 @@ const IsolatedTest = () => {
    }
 
    return (
-      <ProductCard isAdmin={true} callBackActionOnDeletion={callActionDelete} />
+      <AddProduct />
    )
 }
 

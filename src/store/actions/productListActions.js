@@ -1,3 +1,4 @@
+import { deleteProduct } from "../../services/deleteProduct"
 export const producListRequest = () => {
    return {
       type: "PRODUCT_LIST_REQUEST"
@@ -15,6 +16,23 @@ export const producListFail = (error) => {
       payload: error
    }
 }
+export const confirmItemDeletion = (itemId) => {
+   return {
+      type: "CONFIRMED_ITEM_DELETION",
+      payload: itemId
+   }
+}
+export const cancelItemDeletion = () => {
+   return {
+      type: "CANCEL_ITEM_DELETION"
+   }
+}
+export const requestDeleteProduct = () => {
+   return (dispatch) => {
+      deleteProduct()
+   }
+}
+
 export const fetchProductList = () => {
    return (dispatch) => {
       dispatch(producListRequest())
