@@ -8,6 +8,7 @@ import { productDetailReducer } from './productDetailReducer'
 import { orderPageReducer } from './orderPageReducer'
 import { addressFormReducer } from './addressFormReducer'
 import productCardReducer from './productCardReducer'
+import addProductReducer from './addProductReducer'
 
 
 export default combineReducers({
@@ -19,5 +20,6 @@ export default combineReducers({
    productDetail: productDetailReducer,
    orderPage: orderPageReducer,
    savedAddresses: addressFormReducer,
-   productCard: productCardReducer
+   productCard: productCardReducer,
+   addProduct: addProductReducer
 });

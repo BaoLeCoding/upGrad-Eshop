@@ -58,8 +58,6 @@ export const fetchSignIn = (email, password) => {
             let token = response.data.token
             //save token to local storage
             localStorage.setItem("token", token)
-            // NOte: since API does not return user information or tokenbase fetch information, we fetch all user the filter by email
-            // fetch user information
             let user = null
             let isAdmin = null
             let userId = null
