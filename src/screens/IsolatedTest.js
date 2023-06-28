@@ -1,5 +1,5 @@
 import React from 'react'
-import AddProduct from './AddProduct'
+import ProductMod from './ProductMod'
 
 const IsolatedTest = () => {
    let callActionDelete = (id) => {
@@ -7,7 +7,7 @@ const IsolatedTest = () => {
    }
 
    return (
-      <AddProduct />
+      <ProductMod />
    )
 }
 
