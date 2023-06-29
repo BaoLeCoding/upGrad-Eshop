@@ -6,13 +6,14 @@ import { fetchProductList, confirmItemDeletion, cancelItemDeletion } from "../..
 import { useEffect } from 'react'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material'
 import { requestDeleteProduct } from "../../store/actions/productListActions"
+import { ToastContainer, toast } from 'react-toastify';
 
-
-const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchItemName, openDlgCofirmDelete, onConfirmItemDeletion, itemIdToDelete, onRequestDeleteProduct, onCancelItemDeletion, onfetchProductList }) => {
+const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchItemName, openDlgCofirmDelete, onConfirmItemDeletion, itemIdToDelete, onRequestDeleteProduct,error, onCancelItemDeletion, onfetchProductList }) => {
    const [dlgOpen, setDlgOpen] = React.useState(false);
+   const [deletePromise, setDeletePromise] = React.useState(null);
    useEffect(() => {
       onfetchProductList()
-   }, [filterByCategory, sortByMode, searchItemName])
+   }, [products, filterByCategory, sortByMode, searchItemName])
    let filteredProducts = (filterByCategory === "All") ? products : products.filter((product) => product.category === filterByCategory)
    switch (sortByMode) {
       case 1:
@@ -40,17 +41,28 @@ const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchIt
       setDlgOpen(false)
       if (userChoice) {
          console.log('confirmed deletion');
-         onConfirmItemDeletion()
-         onRequestDeleteProduct(itemIdToDelete)
+         onConfirmItemDeletion(itemIdToDelete)
+         setDeletePromise(onRequestDeleteProduct(itemIdToDelete))
       }
       else {
          console.log('declined deletion');
          onCancelItemDeletion()
       }
    }
+   useEffect(() => {
+      if (deletePromise) {
+         toast.promise(deletePromise, {
+            success: "Product deleted successfully",
+            error: error
+         })
+      }
+   }, [deletePromise])
+
+
 
    return (
       <Fragment>
+         <ToastContainer />
          <Dialog
             open={dlgOpen}
             onClose={handleClose}
@@ -91,7 +103,8 @@ let mapStateToProps = (state) => {
       sortByMode: state.shortBy.shortByMode,
       searchItemName: state.searchBar.searchItemName,
       openDlgCofirmDelete: state.productList.openDlgCofirmDelete,
-      itemIdToDelete: state.productList.itemIdToDelete
+      itemIdToDelete: state.productList.itemIdToDelete,
+      error: state.productList.error
    }
 }
 let mapDispatchToProps = (dispatch) => {

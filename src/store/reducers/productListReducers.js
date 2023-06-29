@@ -30,6 +30,7 @@ export const productListReducer = (state = initalState, action) => {
             error: action.payload
          }
       case "CONFIRMING_ITEM_DELETION":
+         console.log(action.payload, 'confirming item deletion');
          return {
             ...state,
             openDlgCofirmDelete: true,
@@ -38,7 +39,19 @@ export const productListReducer = (state = initalState, action) => {
       case "CONFIRMED_ITEM_DELETION":
          return {
             ...state,
-            openDlgCofirmDelete: false
+            openDlgCofirmDelete: false,
+            itemIdToDelete: action.payload
+         }
+      case "PRODUCT_DELETION_SUCCESS":
+         return {
+            ...state,
+            products: state.products.filter(item => item.id !== action.payload.id),
+            itemIdToDelete: null,
+         }
+      case "PRODUCT_DELETION_FAIL":
+         return {
+            ...state,
+            error: action.payload
          }
       case "CANCEL_ITEM_DELETION":
          return {

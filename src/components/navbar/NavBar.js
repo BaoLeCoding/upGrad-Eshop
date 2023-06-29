@@ -102,18 +102,18 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut, onSetSearchItemName }) => {
                }
                {!isLogin &&
                   <Stack direction="row" spacing={2} padding={1} style={{ marginLeft: 'auto' }}>
-                     <Button color="inherit">
-                        <Link to="/login">Login</Link>
-                     </Button>
+                     <Link to="/login"> <Button color="inherit">
+                        Login
+                     </Button></Link>
 
-                     <Button color="inherit"><Link to="/signup">Sign Up</Link></Button>
+                     <Link to="/signup"><Button color="inherit">Sign Up</Button></Link>
                   </Stack>
                }
 
                {isLogin &&
                   <Stack direction="row" spacing={2} padding={1} style={{ marginLeft: 'auto' }}>
                      <Button color="inherit">Home</Button>
-                     {isAdmin && <Button color="inherit">Add Product</Button>}
+                     {isAdmin && <Link to="/addproduct"><Button color="inherit">Add Product</Button></Link>}
                      <Button color="secondary" variant='contained' onClick={() => onSignOut()}>Logout</Button>
                   </Stack>
                }
