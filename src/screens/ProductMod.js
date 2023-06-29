@@ -6,6 +6,8 @@ import CreatableSelect from 'react-select/creatable';
 import { connect } from 'react-redux'
 import { fetchCategories } from '../store/actions/productModActions';
 import { Alert } from '@mui/material';
+import { requestPostAddProduct } from '../store/actions/addProductAction';
+
 let demoProduct = {
    name: "demoProduct",
    category: "demoCategory",
@@ -26,7 +28,7 @@ let demoEmptyProduct = {
    description: ""
 }
 
-const ProductModForm = ({ categories, onFetchCategories, productId = null, product = demoEmptyProduct }) => {
+const ProductModForm = ({ categories, onFetchCategories, productId = null, product = demoEmptyProduct, onRequestPostAddProduct }) => {
    // create a controlled form with material ui to add product with name, category,price,manufacturer,availableItem,price,imageUrl,description
    let [mode, setMode] = useState(productId ? 'edit' : 'add')
    let [name, setName] = useState(product.name)
@@ -110,6 +112,18 @@ const ProductModForm = ({ categories, onFetchCategories, productId = null, produ
       if (errorFlag) {
          return
       }
+      else {
+         let product = {
+            "name": name,
+            "category": category,
+            "price": price,
+            "manufacturer": manufacturer,
+            "availableItems": availableItem,
+            "imageUrl": imageUrl,
+            "description": description
+         }
+         onRequestPostAddProduct(product)
+      }
 
    }
    const handleCategorySelectionChange = (value, actionMeta) => {
@@ -119,7 +133,7 @@ const ProductModForm = ({ categories, onFetchCategories, productId = null, produ
          return
       }
       console.log(value.value);
-      setCategory(value)
+      setCategory(value.value)
    }
 
 
@@ -215,7 +229,8 @@ let mapStateToProps = (globalState) => {
 }
 let mapDispatchToProps = (dispatch) => {
    return {
-      onFetchCategories: () => dispatch(fetchCategories())
+      onFetchCategories: () => dispatch(fetchCategories()),
+      onRequestPostAddProduct: (product) => dispatch(requestPostAddProduct(product))
    }
 }
 

@@ -1,7 +1,8 @@
 let initialState = {
    categories: [],
    isLoading: false,
-   error: null
+   error: null,
+   addProductError: null
 }
 
 export default function addProductReducer(state = initialState, action) {
@@ -19,6 +20,16 @@ export default function addProductReducer(state = initialState, action) {
             categories: [],
             isLoading: false,
             error: action.payload
+         }
+      case "ADD_NEW_PRODUCT_SUCCESS":
+         return {
+            ...state,
+            addProductError: null
+         }
+      case "ADD_NEW_PRODUCT_FAIL":
+         return {
+            ...state,
+            addProductError: action.payload
          }
       default:
          return state
