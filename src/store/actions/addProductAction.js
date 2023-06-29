@@ -11,6 +11,13 @@ export const addNewProductFail = (error) => {
    }
 }
 
+export const formReset = () => {
+   return {
+      type: "FORM_RESET"
+   }
+}
+
+
 export const requestPostAddProduct = (product) => {
    return (dispatch) => {
 

@@ -1,22 +1,12 @@
 import React, { Fragment, useEffect } from 'react'
 import { useState } from 'react'
 import { FormControl, TextField, Button } from '@mui/material'
-
+import { ToastContainer, toast } from 'react-toastify';
 import CreatableSelect from 'react-select/creatable';
 import { connect } from 'react-redux'
 import { fetchCategories } from '../store/actions/productModActions';
 import { Alert } from '@mui/material';
-import { requestPostAddProduct } from '../store/actions/addProductAction';
-
-let demoProduct = {
-   name: "demoProduct",
-   category: "demoCategory",
-   price: 100,
-   manufacturer: "demoManufacturer",
-   availableItem: 100,
-   imageUrl: "demoImageUrl",
-   description: "demoDescription"
-}
+import { requestPostAddProduct, formReset } from '../store/actions/addProductAction';
 
 let demoEmptyProduct = {
    name: "",
@@ -28,7 +18,10 @@ let demoEmptyProduct = {
    description: ""
 }
 
-const ProductModForm = ({ categories, onFetchCategories, productId = null, product = demoEmptyProduct, onRequestPostAddProduct }) => {
+const ProductModForm = ({ categories, error, productAdded, onFetchCategories, productId = null, product = demoEmptyProduct, onRequestPostAddProduct, onFormReset }) => {
+   //META DATA FORM FOR PRODUCT
+   // LEAVE THE ID EMPTY FOR ADD PRODUCT
+   // FILL THE ID FOR EDIT PRODUCT
    // create a controlled form with material ui to add product with name, category,price,manufacturer,availableItem,price,imageUrl,description
    let [mode, setMode] = useState(productId ? 'edit' : 'add')
    let [name, setName] = useState(product.name)
@@ -150,11 +143,39 @@ const ProductModForm = ({ categories, onFetchCategories, productId = null, produ
          }
          ))
    }, [categories])
-
+   const showError = () => {
+      console.log(error.message)
+      toast.error('Cannot added product!', {
+         position: toast.POSITION.TOP_RIGHT
+      });
+   };
+   useEffect(() => {
+      if (error) {
+         showError();
+      }
+   }, [error]);
+   useEffect(() => {
+      if (productAdded) {
+         toast.success(`Product ${name} added successfully!`)
+         clearForm()
+         onFormReset()
+      }
+   }, [productAdded])
+   let clearForm = () => {
+      setName('')
+      setCategory('')
+      setPrice('')
+      setManufacturer('')
+      setAvailableItem('')
+      setImageUrl('')
+      setDescription('')
+   }
 
    return (
       <Fragment>
+
          <h1>Add Product</h1>
+         <ToastContainer />
 
          <FormControl>
             {/* Create input field for each state */}
@@ -224,13 +245,16 @@ const ProductModForm = ({ categories, onFetchCategories, productId = null, produ
 
 let mapStateToProps = (globalState) => {
    return {
-      categories: globalState.categories.categories
+      categories: globalState.productMod.categories,
+      error: globalState.productMod.error,
+      productAdded: globalState.productMod.productAdded
    }
 }
 let mapDispatchToProps = (dispatch) => {
    return {
       onFetchCategories: () => dispatch(fetchCategories()),
-      onRequestPostAddProduct: (product) => dispatch(requestPostAddProduct(product))
+      onRequestPostAddProduct: (product) => dispatch(requestPostAddProduct(product)),
+      onFormReset: () => dispatch(formReset())
    }
 }
 

@@ -21,5 +21,5 @@ export default combineReducers({
    orderPage: orderPageReducer,
    savedAddresses: addressFormReducer,
    productCard: productCardReducer,
-   addProduct: productModReducer
+   productMod: productModReducer
 });

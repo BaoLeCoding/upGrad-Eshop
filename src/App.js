@@ -11,6 +11,7 @@ import ProductDetailPage from './screens/ProductDetailPage';
 import MainPageContents from './screens/MainPageContents';
 import OrderPage from './screens/OrderPage';
 import IsolatedTest from './screens/IsolatedTest';
+import ProductModForm from './screens/ProductMod';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="login" element={<LogInPage />} />
         <Route path="signup" element={<SignUpPage />} />
         <Route path="test" element={<IsolatedTest />} />
+        <Route path="addproduct" element={<ProductModForm />} />
       </Routes>
       {/* TODO: What if logged in but type Sign up/login without log out? */}
     </div>
