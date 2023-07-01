@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { Container, Stack, Typography, TextField, Button } from '@mui/material'
 import { useState } from 'react'
 import { connect } from 'react-redux'
-
+import "./ItemSummary.css"
 
 const ItemSummary = ({ orderQuantity, product }) => {
    console.log(orderQuantity, product)
@@ -15,13 +15,38 @@ const ItemSummary = ({ orderQuantity, product }) => {
          <Container maxWidth="lg">
             {/* <h1>ProductDetailPage</h1> */}
             <Stack spacing={2} direction='row'>
-               <img src={imageUrl} alt={name} style={{ "maxWidth": 300, "maxHeight": 400 }} />
+               <img
+                  className="ProductImageOrder"
+                  src={imageUrl}
+                  alt={name} />
                <Stack spacing={2} direction='column'>
-                  <Typography variant="h3" textAlign={'left'}>{name}</Typography>
-                  <Typography variant="h4" textAlign={'left'}>Quantity: {quantity}</Typography>
-                  <Typography variant="h5" textAlign={'left'}>Category: {category}</Typography>
-                  <Typography variant="body" textAlign={'left'}>{description}</Typography>
-                  <Typography variant="h4" textAlign={'left'}>Total Price: $ {quantity * price}</Typography>
+                  <Typography
+                     variant="h5"
+                     textAlign={'left'}
+                     style={{ "fontWeight": "bold" }}>
+                     {name}
+                  </Typography>
+                  <Typography
+                     variant="h6"
+                     textAlign={'left'}>
+                     Quantity: {quantity}
+                  </Typography>
+                  <Typography
+                     variant="body"
+                     textAlign={'left'}>
+                     Category: {category}
+                  </Typography>
+                  <Typography
+                     variant="body"
+                     textAlign={'left'}>
+                     {description}
+                  </Typography>
+                  <Typography
+                     variant="h6"
+                     textAlign={'left'}
+                     style={{ "color": "#ee2c3c" }}>
+                     Total Price: $ {quantity * price}
+                  </Typography>
 
                </Stack>
 

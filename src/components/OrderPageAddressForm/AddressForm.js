@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect } from 'react'
-import { FormControl, InputLabel, Select, MenuItem, FormLabel, TextField, Button } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, FormLabel, TextField, Button, Typography } from '@mui/material';
 import { fetchSavedAddress, postNewAddress } from '../../store/actions/addressFormActions';
 import { connect } from 'react-redux';
 import { setStep2Valid } from '../../store/actions/addressFormActions';
 import { setDeviveryAddress } from '../../store/actions/addressFormActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Box from '@mui/material/Box';
+
 
 const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSavedAddress, onSetStep2Valid, onPostNewAddress, onSetDeviveryAddress }) => {
    const [selectSavedAddress, setSelectedSavedAddress] = React.useState('');
@@ -126,34 +128,82 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
    return (
       <Fragment>
          <ToastContainer />
-         <FormControl fullWidth >
-            <InputLabel id="select-address-label">Select Address</InputLabel>
-            <Select
-               labelId="select-address-label"
-               id="select-address"
-               value={selectSavedAddress}
-               label="Address"
-               onChange={handleSelectSavedAddress}
+         <Box display={"flex"} style={{ "justifyContent": "center" }}>
+            <FormControl
+               className="AddressForm"
+               fullWidth
             >
-               {/* saved address array to selection options */}
+               <InputLabel id="select-address-label">Select Address</InputLabel>
+               <Select
+                  labelId="select-address-label"
+                  id="select-address"
+                  value={selectSavedAddress}
+                  label="Address"
+                  onChange={handleSelectSavedAddress}
+               >
+                  {/* saved address array to selection options */}
 
-               {savedAddresses && savedAddresses.map((address) => {
-                  return <MenuItem key={address.id} value={address.id}>{`${address.name} - ${address.contactNumber} - ${address.landmark}, ${address.street}, ${address.state}`}</MenuItem>
-               })}
-            </Select>
-            <FormLabel>Add Address</FormLabel>
-            <TextField placeholder='Name*' name="name" value={name} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='ContactNumber*' name="contactNumber" value={contactNumber} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='Street*' name="street" value={street} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='City*' name="city" value={city} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='State*' name="state" value={state} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='Landmark*' name="landmark" value={landmark} onChange={handleFormInutChange}></TextField>
-            <TextField placeholder='Zip Code*' name="zipCode" value={zipCode} onChange={handleFormInutChange}></TextField>
-            <Button variant='contained' onClick={handleSaveAddress} >SAVE ADDRESS</Button>
+                  {savedAddresses && savedAddresses.map((address) => {
+                     return <MenuItem key={address.id} value={address.id}>{`${address.name} - ${address.contactNumber} - ${address.landmark}, ${address.street}, ${address.state}`}</MenuItem>
+                  })}
+               </Select>
+               <Typography
+                  className="ProductName"
+                  variant="h6"
+                  textAlign={'left'}
+               >
+                  Add Address
+               </Typography>
+               <TextField
+                  className='Input'
+                  placeholder='Name*'
+                  name="name"
+                  value={name}
+                  onChange={handleFormInutChange}></TextField>
+               <TextField
+                  className='Input'
+                  placeholder='ContactNumber*'
+                  name="contactNumber"
+                  value={contactNumber}
+                  onChange={handleFormInutChange}></TextField>
+               <TextField
+                  className='Input'
+                  placeholder='Street*'
+                  name="street"
+                  value={street}
+                  onChange={handleFormInutChange}></TextField>
+               <TextField
+                  className='Input'
+                  placeholder='City*'
+                  name="city"
+                  value={city}
+                  onChange={handleFormInutChange}></TextField>
+               <TextField
+                  className='Input'
+                  placeholder='State*'
+                  name="state"
+                  value={state}
+                  onChange={handleFormInutChange}></TextField>
+               <TextField
+                  className='Input'
+                  placeholder='Landmark*'
+                  name="landmark"
+                  value={landmark} onChange={handleFormInutChange}></TextField>
+               <TextField
+                  className='Input'
+                  placeholder='Zip Code*'
+                  name="zipCode"
+                  value={zipCode}
+                  onChange={handleFormInutChange}></TextField>
+               <Button
+                  className='SubmitBtn'
+                  variant='contained'
+                  onClick={handleSaveAddress}
+               >SAVE ADDRESS</Button>
 
-         </FormControl>
+            </FormControl>
 
-
+         </Box>
       </Fragment >
    )
 }

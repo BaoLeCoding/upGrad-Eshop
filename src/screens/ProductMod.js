@@ -10,7 +10,9 @@ import { requestPostAddProduct, formReset } from '../store/actions/addProductAct
 import { useParams } from 'react-router-dom';
 import { fetchProductDetail } from '../store/actions/productDetailActions';
 import { RequestPutmodifyProduct } from '../store/actions/modifyProductAction';
-
+import "./ProductMod.css"
+import { Typography } from '@mui/material'
+import Box from '@mui/material/Box';
 
 let demoEmptyProduct = {
    name: "",
@@ -210,72 +212,93 @@ const ProductModForm = ({ categories, error, productAdded, onFetchCategories, on
 
    return (
       <Fragment>
-         {mode === "add" ? <h1>Add Product</h1> : <h1>Edit Product</h1>}
+
 
          <ToastContainer />
+         <Box display="flex" style={{ "justifyContent": "center" }}>
+            <FormControl className="ProductModFullForm">
+               <Typography variant="h6" gutterBottom> {mode === "add" ? "Add Product" : "Edit Product"}</Typography>
+               {/* Create input field for each state */}
+               <TextField
+                  className="Input"
+                  error={nameError != ""}
+                  helperText={nameError}
+                  id="name"
+                  label="Name *"
+                  value={name}
+                  onChange={(e) =>
+                     setName(e.target.value)} />
+               {mode === "add" ?
+                  <CreatableSelect
+                     className="CreatableSelect"
+                     isClearable options={availableCategories}
+                     onChange={handleCategorySelectionChange} /> :
+                  <TextField
+                     className="Input"
+                     id="category"
+                     label="Category"
+                     value={category}
+                     onChange={(e) => setCategory(e.target.value)} />}
+               {
+                  categoryError != "" ?
+                     <Alert severity="error">{categoryError}</Alert> :
+                     null
+               }
+               <TextField
+                  className="Input"
+                  error={priceError != ""}
+                  helperText={priceError}
+                  id="price"
+                  label="Price *"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)} />
+               <TextField
+                  className="Input"
+                  error={manufacturerError != ""}
+                  helperText={manufacturerError}
+                  id="manufacturer"
+                  label="Manufacturer *"
+                  value={manufacturer}
+                  onChange={(e) => setManufacturer(e.target.value)} />
+               <TextField
+                  className="Input"
+                  error={availableItemError != ""}
+                  helperText={availableItemError}
+                  id="availableItem"
+                  label="Available Item *"
+                  value={availableItem}
+                  onChange={(e) => setAvailableItem(e.target.value)} />
+               <TextField
+                  className="Input"
+                  error={imageUrlError != ""}
+                  helperText={imageUrlError}
+                  id="imageUrl"
+                  label="Image Url *"
+                  value={imageUrl}
+                  onChange={(e) =>
+                     setImageUrl(e.target.value)} />
+               <img
+                  src={imageUrl}
+                  style={{ "maxWidth": 200 }} />
+               <TextField
+                  className="Input"
+                  error={descriptionError != ""}
+                  helperText={descriptionError}
+                  id="description"
+                  label="Description *"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)} />
 
-         <FormControl>
-            {/* Create input field for each state */}
-            <TextField
-               error={nameError != ""}
-               helperText={nameError}
-               id="name"
-               label="Name *"
-               value={name}
-               onChange={(e) =>
-                  setName(e.target.value)} />
-            {mode === "add" ?
-               <CreatableSelect isClearable options={availableCategories} onChange={handleCategorySelectionChange} /> :
-               <TextField id="category" label="Category" value={category} onChange={(e) => setCategory(e.target.value)} />}
-            {
-               categoryError != "" ?
-                  <Alert severity="error">{categoryError}</Alert> :
-                  null
-            }
-            <TextField
-               error={priceError != ""}
-               helperText={priceError}
-               id="price"
-               label="Price *"
-               value={price}
-               onChange={(e) => setPrice(e.target.value)} />
-            <TextField
-               error={manufacturerError != ""}
-               helperText={manufacturerError}
-               id="manufacturer"
-               label="Manufacturer *"
-               value={manufacturer}
-               onChange={(e) => setManufacturer(e.target.value)} />
-            <TextField
-               error={availableItemError != ""}
-               helperText={availableItemError}
-               id="availableItem"
-               label="Available Item *"
-               value={availableItem}
-               onChange={(e) => setAvailableItem(e.target.value)} />
-            <TextField
-               error={imageUrlError != ""}
-               helperText={imageUrlError}
-               id="imageUrl"
-               label="Image Url *"
-               value={imageUrl}
-               onChange={(e) =>
-                  setImageUrl(e.target.value)} />
-            <img
-               src={imageUrl}
-               style={{ "maxWidth": 200 }} />
-            <TextField
-               error={descriptionError != ""}
-               helperText={descriptionError}
-               id="description"
-               abel="Description *"
-               value={description}
-               onChange={(e) => setDescription(e.target.value)} />
 
-
-            <Button variant="contained" color="primary" onClick={handleSubmit}>{mode === "add" ? "SAVE PRODUCT" : "MODIFY PRODUCT"}</Button>
-         </FormControl>
-
+               <Button
+                  className='SubmitBtn'
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit}>
+                  {mode === "add" ? "SAVE PRODUCT" : "MODIFY PRODUCT"}
+               </Button>
+            </FormControl>
+         </Box>
       </Fragment>
    )
 }

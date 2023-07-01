@@ -50,14 +50,15 @@ const ProductDetailPage = ({ isLogin, product, onFetchProductDetail, onSetOrderI
                      spacing={2}
                      direction='row'>
                      <Typography
+                        className="ProductName"
                         variant="h5"
                         textAlign={'left'}
-                        style={{ "flexGrow": 1, "fontWeight": "bold" }}
                      >
                         {name}
                      </Typography>
                      <Typography
-                        variant="h6"
+                        className='AvailableQuantity'
+                        variant="body"
                         textAlign={'left'}>
                         Available Quantity {availableItems}
                      </Typography>

@@ -29,3 +29,17 @@
   scroll-margin-right: 2px;
 }
 
+.ProductName{
+   font-weight: bold!important;
+   color: #3f55b2;
+}
+.AvailableQuantity{
+   background-color: #3f55b2;
+   font-weight: bold!important;
+   color:#FFF!important;
+   padding:10px;
+   border-radius: 30px;
+   white-space: nowrap;
+   max-height: 30px;
+}
+

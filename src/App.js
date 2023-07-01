@@ -11,7 +11,8 @@ import ProductHome from './screens/ProductHome';
 import OrderPage from './screens/OrderPage';
 import IsolatedTest from './screens/IsolatedTest';
 import ProductModForm from './screens/ProductMod';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
+
 
 function App() {
   return (

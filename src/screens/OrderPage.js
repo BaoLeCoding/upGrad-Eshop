@@ -10,6 +10,7 @@ import { Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postRequestOrdering } from '../store/actions/orderPageActions';
+import "./OrderPage.css"
 
 const steps = ['Items', 'Select Address', 'Confirm Order'];
 const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, ordering_complete, ordering_error, onSetStep2Valid, onPostRequestOrdering }) => {
@@ -107,8 +108,12 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
       <Fragment>
          {/* {ordering_complete ? showOrderCompleteToast() : null} */}
          <ToastContainer />
-         <Container>
-            <Stepper activeStep={activeStep}>
+         <Container
+            className="OrderPageMain"
+         >
+            <Stepper 
+            activeStep={activeStep}
+            className="StepperBar">
                {steps.map((label, index) => {
                   const stepProps = {};
                   const labelProps = {};
@@ -127,20 +132,12 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
                   );
                })}
             </Stepper>
-            {/* {activeStep === steps.length ? (
-               <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>
-                     All steps completed - you&apos;re finished
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                     <Box sx={{ flex: '1 1 auto' }} />
-                     <Button onClick={handleReset}>Reset</Button>
-                  </Box>
-               </React.Fragment>
-            ) : ( */}
-            <React.Fragment>
+
+            <Fragment
+
+            >
                {/* Step content */}
-               <Typography sx={{ mt: 2, mb: 1 }}>Current step: {activeStep + 1}</Typography>
+               {/* <Typography sx={{ mt: 2, mb: 1 }}>Current step: {activeStep + 1}</Typography> */}
 
                {activeStep === 0 && <ItemSummary />}
                {activeStep === 1 && <AddressForm />}
@@ -168,7 +165,7 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
                         <Button onClick={handleNext} disabled>Next</Button>
                   }
                </Box>
-            </React.Fragment>
+            </Fragment>
             {/* )} */}
          </Container>
       </Fragment>
