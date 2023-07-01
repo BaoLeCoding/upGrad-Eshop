@@ -2,6 +2,7 @@ import React from 'react'
 import { FormControl, InputLabel, MenuItem, Select, FormHelperText } from '@mui/material'
 import { connect } from 'react-redux'
 import { setShortByMode } from '../../store/actions/shortByActions'
+import "./SortBy.css"
 
 
 
@@ -13,7 +14,9 @@ const SortBy = ({ shortByMode, onSetSortByMode }) => {
    };
 
    return (
-      <FormControl variant="outlined" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl 
+      className="SortByForm"
+      variant="outlined" sx={{ m: 1, minWidth: 120 }}>
          <InputLabel id="sorting-label">Sort By</InputLabel>
          <Select
             labelId="sorting"

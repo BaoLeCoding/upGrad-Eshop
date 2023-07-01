@@ -15,69 +15,79 @@ import { connect } from 'react-redux'
 import { confirmItemDeletion } from '../../store/actions/productCardActions'
 import { requestConfirmItemDeletion } from '../../store/actions/productCardActions'
 import ConfirmationDialog from '../../commons/ConfirmationDialog/ConfirmationDialog';
+import "./ProductCard.css"
 
-let demoData = {
-  "id": "123",
-  "name": "Demo Item Name",
-  "category": "Demo Item Category",
-  "price": "123",
-  "description": "Demo Item Description",
-  "manufacturer": "Demo Item Manufacturer",
-  "availableItems": "123",
-  "imageUrl": "https://placehold.co/600x400/EEE/31343C"
-}
-
-function ProductCard({ product = demoData, isAdmin = false, onRequestConfirmItemDeletion }) {
+function ProductCard({ product, isAdmin = false, onRequestConfirmItemDeletion }) {
   const { id, name, category, price, description, manufacturer, availableItems, imageUrl } = product
   const [Itemname, setItemname] = useState(name)
   const [ItemPrice, setItemPrice] = useState(price)
   const [Description, setDescription] = useState(description)
   const [ItemImg, setItemImg] = useState(imageUrl)
-
-
-  const maxCardWidth = useState(400)
-  const maxImageHeight = useState(200)
+  const truncate = (input, maxLength = 100) => input.length > maxLength ? `${input.substring(0, maxLength)}...` : input;
 
   return (
 
-    <Card sx={{ maxWidth: maxCardWidth }}>
+    <Card className="ProductCard" >
+
       <Link to={`/${id}`} style={{ textDecoration: "none" }}>
         <CardMedia
-          sx={{ height: maxImageHeight }}
+          className="ProductCard__image"
           image={ItemImg}
           title={Itemname}
         />
       </Link>
-      <CardContent>
-        <Stack spacing={2} direction="row" style={{ display: "flex", marginLeft: 'auto' }}>
-          <Typography gutterBottom variant="h5" component="div" style={{ flexGrow: 1, textAlign: "left" }}>
-            {Itemname}
+
+      <CardContent >
+        <Stack spacing={4} direction="row" style={{ display: "flex", marginLeft: 'auto', minHeight: "60px" }}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            style={{ flexGrow: 1, "fontWeight": "bold" }}>
+            {truncate(Itemname, 50)}
           </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {"$ " + ItemPrice}
+          <Typography
+            gutterBottom variant="h6"
+            component="div"
+            style={{ marginLeft: 'auto' }}>
+            {"$" + ItemPrice}
           </Typography>
         </Stack>
-        <Typography variant="body2" color="text.secondary">
-          {Description}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          style={{ minHeight: "50px" }}>
+          {truncate(Description)}
         </Typography>
       </CardContent>
 
-      <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
+      <CardActions style={{ marginTop: "auto", display: "flex" }}>
         {/* Buy button link to product detail */
-          <Link to={`/${id}`} style={{ textDecoration: "none" }}>
-            <Button size="small" variant="contained" style={{ marginRight: "auto" }} >BUY</Button>
+          <Link
+            to={`/${id}`}
+            style={{ textDecoration: "none" }}>
+            <Button
+              className="BuyButton"
+              size="small"
+              variant="contained"
+              style={{ marginRight: "auto", flexGrow: "1" }} >
+              BUY
+            </Button>
           </Link>}
         {isAdmin &&
-          <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
-            <IconButton>
+          <Link to={`/edit/${id}`} style={{
+            textDecoration: "none", marginLeft: "auto"
+          }}>
+            < IconButton >
               <EditIcon />
             </IconButton>
           </Link>}
-        {isAdmin &&
+        {
+          isAdmin &&
           <IconButton onClick={(e) => onRequestConfirmItemDeletion(id)}>
             <DeleteIcon />
-          </IconButton>}
-      </CardActions>
+          </IconButton>
+        }
+      </CardActions >
     </Card >
 
 

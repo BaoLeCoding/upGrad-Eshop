@@ -6,9 +6,8 @@ import Stack from '@mui/material/Stack';
 
 import LogInPage from './screens/LogInPage';
 import SignUpPage from './screens/SignUpPage';
-import ProductPage from './screens/ProductPage';
-import ProductDetailPage from './screens/ProductDetailPage';
-import MainPageContents from './screens/MainPageContents';
+import ProductDetailPage from './screens/ProductDetail';
+import ProductHome from './screens/ProductHome';
 import OrderPage from './screens/OrderPage';
 import IsolatedTest from './screens/IsolatedTest';
 import ProductModForm from './screens/ProductMod';
@@ -21,7 +20,7 @@ function App() {
       <Box className="main-content">
         <Routes>
           <Route exact path="/">
-            <Route index element={<MainPageContents />} />
+            <Route index element={<ProductHome />} />
             <Route path=":id" element={<ProductDetailPage />} />
           </Route>
           <Route path="order">

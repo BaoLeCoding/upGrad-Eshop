@@ -39,7 +39,7 @@ const Search = styled('div')(({ theme }) => ({
       marginLeft: theme.spacing("5%"),
       marginRight: theme.spacing("5%"),
       width: 'auto',
-      minWidth: '50%'
+      minWidth: '40%'
    },
 }));
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -95,11 +95,14 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut, onSetSearchItemName }) => {
                   </Typography>
                </Link>
                {isLogin &&
-                  <Search >
+                  <Search
+                     className='SearchBox'
+                  >
                      <SearchIconWrapper>
                         <SearchIcon />
                      </SearchIconWrapper>
                      <StyledInputBase
+
                         placeholder="Search…"
                         inputProps={{ 'aria-label': 'search' }}
                         onChange={(e) => onSearchBoxChange(e)}

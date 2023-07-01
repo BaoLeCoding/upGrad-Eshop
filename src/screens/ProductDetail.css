@@ -1,0 +1,31 @@
+.ProductImage{
+   display: block;
+   background-color: #FFF !important;
+   padding:10px;
+   border-radius: 10px 0px 0px 10px;
+   max-width:300;
+   max-height:200px;
+   width: auto;
+   height: auto;
+}
+.PlaceOrderBtn{
+   background-color: #3f55b2 !important;
+   border-radius: 15px!important;
+   max-width: 200px;
+}
+.ProductDetailCard{
+   /* background-color: #3f55b2!important; */
+   margin-top:2%
+}
+.ProductDetail{
+   background-color: rgb(255, 255, 255);
+   padding: 2%;
+   border-radius: 0px 10px 10px 0px;
+}
+
+.vl {
+  border-left: 5px solid #f1f5ff;
+  margin-left: 2px;
+  scroll-margin-right: 2px;
+}
+

@@ -141,7 +141,7 @@ const SignUpPage = ({ isLogin, isAdmin, onSignUp }) => {
 
         {isLogin ? <Navigate to="/" /> : null}
         <Stack direction="row" spacing={2}>
-          <LockIcon
+          <AppRegistrationIcon
             className='LockIcon' />
           <Typography variant="h3">
             Sign Up
@@ -212,7 +212,7 @@ const SignUpPage = ({ isLogin, isAdmin, onSignUp }) => {
             SIGN UP
           </Button>
         </FormControl>
-        <Typography variant='body'><Link to="/login">Already have an account? Sign in </Link></Typography>
+        <Typography variant='body'><Link to="/login" style={{ textDecoration: "none" }}>Already have an account? Sign in </Link></Typography>
       </Stack>
     </Stack>
   )

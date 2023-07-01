@@ -5,6 +5,9 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { useEffect } from 'react';
 import { fetchCategories, setFilterByCategory } from '../../store/actions/categoriesActions'
 import { connect } from 'react-redux';
+import "./ProductCategories.css"
+
+
 function ProductCategories({ ProductCategories, onFetchCategories, onSetFilterByCategory }) {
    const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -21,13 +24,20 @@ function ProductCategories({ ProductCategories, onFetchCategories, onSetFilterBy
 
    return (
       <ToggleButtonGroup
+         className="ProductCategoriesBtnGroup"
          color="primary"
          value={selectedCategory}
          onChange={handleChange}
          aria-label="Category"
          exclusive={true}
       >
-         {ProductCategories.map((category, index) => (<ToggleButton key={index} value={category} >{category}</ToggleButton >))}
+         {ProductCategories.map((category, index) => (
+            <ToggleButton
+               className="ProductCategoriesBtn"
+               key={index}
+               value={category} >
+               {category}
+            </ToggleButton >))}
 
       </ToggleButtonGroup>
    );

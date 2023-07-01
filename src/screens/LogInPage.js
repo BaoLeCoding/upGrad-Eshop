@@ -30,11 +30,13 @@ const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn })
         alignItems={"center"}>
         {/* user already logged in, then go to home */}
         {isLogin ? <Navigate to="/" /> : null}
-        <LockIcon
-          className='LockIcon' />
-        <Typography variant="h3">
-          Sign In
-        </Typography>
+        <Stack direction="row" spacing={2}>
+          <LockIcon
+            className='LockIcon' />
+          <Typography variant="h3">
+            Sign In
+          </Typography>
+        </Stack>
         <FormControl className="SignInForm" fullWidth sx={{ m: 1, width: '50ch' }}>
           <TextField
             className="Input"
@@ -67,7 +69,7 @@ const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn })
             </Button>
           }
         </FormControl>
-        <Typography variant='body'><Link to="/signup">Don't have an account? Sign Up
+        <Typography variant='body' ><Link to="/signup" style={{ textDecoration: "none" }}>Don't have an account? Sign Up
         </Link></Typography>
 
       </Stack >

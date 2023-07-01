@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import ProductCard from '../ProductCard/ProductCard'
-import { Stack } from '@mui/material'
+import { Grid } from '@mui/material'
 import { connect } from 'react-redux'
 import { fetchProductList, confirmItemDeletion, cancelItemDeletion } from "../../store/actions/productListActions"
 import { useEffect } from 'react'
@@ -8,7 +8,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, B
 import { requestDeleteProduct } from "../../store/actions/productListActions"
 import { ToastContainer, toast } from 'react-toastify';
 
-const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchItemName, openDlgCofirmDelete, onConfirmItemDeletion, itemIdToDelete, onRequestDeleteProduct,error, onCancelItemDeletion, onfetchProductList }) => {
+const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchItemName, openDlgCofirmDelete, onConfirmItemDeletion, itemIdToDelete, onRequestDeleteProduct, error, onCancelItemDeletion, onfetchProductList }) => {
    const [dlgOpen, setDlgOpen] = React.useState(false);
    const [deletePromise, setDeletePromise] = React.useState(null);
    useEffect(() => {
@@ -82,15 +82,17 @@ const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchIt
                <Button onClick={() => handleCloseDlg(true)} autoFocus> Confirm </Button>
             </DialogActions>
          </Dialog>
-         <div>ProductGrid</div>
-         <Stack direction="row" display="flex" spacing={15} style={{ "flex": 1, "flexWrap": "wrap", "justifyContent": "flex-end", "margin": "15px 15px", "padding": "15px", "rowGap": "1em", "columnGap": "1em" }}>
+
+         <Grid container spacing={3} gridAutoRows={1}>
 
             {filteredProducts.map((product) => {
                return (
-                  <ProductCard key={product.id} product={product} isAdmin={isAdmin} />
+                  <Grid item xs={4}>
+                     <ProductCard key={product.id} product={product} isAdmin={isAdmin} />
+                  </Grid>
                )
             })}
-         </Stack>
+         </Grid>
       </Fragment>
    )
 }
