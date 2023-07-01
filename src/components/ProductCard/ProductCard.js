@@ -95,9 +95,11 @@ function ProductCard({ product = demoData, isAdmin = false, onRequestConfirmItem
             <Button size="small" variant="contained" style={{ marginRight: "auto" }} >BUY</Button>
           </Link>}
         {isAdmin &&
+        <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
           <IconButton>
             <EditIcon />
-          </IconButton>}
+          </IconButton>
+          </Link>}
         {isAdmin &&
           <IconButton onClick={(e) => onRequestConfirmItemDeletion(id)}>
             <DeleteIcon />

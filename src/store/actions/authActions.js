@@ -61,6 +61,7 @@ export const fetchSignIn = (email, password) => {
             let user = null
             let isAdmin = null
             let userId = null
+
             axios.get("http://localhost:8080/api/users", { headers: { Authorization: `Bearer ${token}` } })
                .then((response) => {
                   user = response.data.filter(user => user.email === email)
@@ -68,24 +69,25 @@ export const fetchSignIn = (email, password) => {
                   userId = user[0].id
                   dispatch(signInSuccess({ token, isAdmin, userId }))
                }
-               ).catch(error => dispatch(signInFailed(error)))
+               ).catch(
+                  () => {
+                     console.log('not admin')
+                     user = null
+                     isAdmin = false
+                     userId = null
+                     dispatch(signInSuccess({ token, isAdmin, userId }))
+                  }
+               )
          }
          ).catch(error => dispatch(signInFailed(error)))
 
    }
 }
-export const fetchSignUp = (email, password, contactNumber, lastName, firstName) => {
+export const postSignUp = (data) => {
    return (dispatch) => {
       dispatch(signUpRequest())
-      let body = JSON.stringify({
-         "contactNumber": contactNumber,
-         "email": email,
-         "firstName": firstName,
-         "lastName": lastName,
-         "password": password
-      })
       axios.post("http://localhost:8080/api/auth/signup",
-         body, { headers: { 'Content-Type': 'application/json' } })
+         data, { headers: { 'Content-Type': 'application/json' } })
          .then((response) => {
             dispatch(signUpSuccess())
          }).catch(error => dispatch(signUpFailed(error)))

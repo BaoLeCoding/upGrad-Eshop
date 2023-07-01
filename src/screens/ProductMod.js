@@ -7,6 +7,10 @@ import { connect } from 'react-redux'
 import { fetchCategories } from '../store/actions/productModActions';
 import { Alert } from '@mui/material';
 import { requestPostAddProduct, formReset } from '../store/actions/addProductAction';
+import { useParams } from 'react-router-dom';
+import { fetchProductDetail } from '../store/actions/productDetailActions';
+import { RequestPutmodifyProduct } from '../store/actions/modifyProductAction';
+
 
 let demoEmptyProduct = {
    name: "",
@@ -18,20 +22,42 @@ let demoEmptyProduct = {
    description: ""
 }
 
-const ProductModForm = ({ categories, error, productAdded, onFetchCategories, productId = null, product = demoEmptyProduct, onRequestPostAddProduct, onFormReset }) => {
+const ProductModForm = ({ categories, error, productAdded, onFetchCategories, onFetchProductDetail, productToEdit, product = demoEmptyProduct, onRequestPostAddProduct, onFormReset, onRequestPutmodifyProduct }) => {
    //META DATA FORM FOR PRODUCT
    // LEAVE THE ID EMPTY FOR ADD PRODUCT
    // FILL THE ID FOR EDIT PRODUCT
    // create a controlled form with material ui to add product with name, category,price,manufacturer,availableItem,price,imageUrl,description
+   const productId = useParams().id
+   let [productIdToEdit, setProductIdToEdit] = useState(productId)
    let [mode, setMode] = useState(productId ? 'edit' : 'add')
-   let [name, setName] = useState(product.name)
-   let [availableCategories, setAvailableCategories] = useState(product.category)
-   let [category, setCategory] = useState(product.category)
-   let [price, setPrice] = useState(product.price)
-   let [manufacturer, setManufacturer] = useState(product.manufacturer)
-   let [availableItem, setAvailableItem] = useState(product.availableItem)
-   let [imageUrl, setImageUrl] = useState(product.imageUrl)
-   let [description, setDescription] = useState(product.description)
+   let [name, setName] = useState("")
+   let [availableCategories, setAvailableCategories] = useState("")
+   let [category, setCategory] = useState("")
+   let [price, setPrice] = useState("")
+   let [manufacturer, setManufacturer] = useState("")
+   let [availableItem, setAvailableItem] = useState("")
+   let [imageUrl, setImageUrl] = useState("")
+   let [description, setDescription] = useState("")
+   console.log(productId);
+   useEffect(() => {
+      if (productId !== undefined) {
+         onFetchProductDetail(productId)
+      }
+   }, [])
+   useEffect(() => {
+      console.log('get product info from db');
+      console.log(productToEdit);
+      setName(productToEdit.name)
+      setCategory(productToEdit.category)
+      setPrice(productToEdit.price)
+      setManufacturer(productToEdit.manufacturer)
+      setAvailableItem(productToEdit.availableItems)
+      setImageUrl(productToEdit.imageUrl)
+      setDescription(productToEdit.description)
+
+   }, [productToEdit])
+
+
    // let [error, setError] = useState('')
    let [nameError, setNameError] = useState('')
    let [categoryError, setCategoryError] = useState('')
@@ -105,17 +131,23 @@ const ProductModForm = ({ categories, error, productAdded, onFetchCategories, pr
       if (errorFlag) {
          return
       }
-      else {
-         let product = {
-            "name": name,
-            "category": category,
-            "price": price,
-            "manufacturer": manufacturer,
-            "availableItems": availableItem,
-            "imageUrl": imageUrl,
-            "description": description
-         }
+      let product = {
+         "name": name,
+         "category": category,
+         "price": price,
+         "manufacturer": manufacturer,
+         "availableItems": availableItem,
+         "imageUrl": imageUrl,
+         "description": description
+      }
+      if (mode === "add") {
          onRequestPostAddProduct(product)
+         return
+      }
+      if (mode === "edit") {
+         console.log('edit product');
+         onRequestPutmodifyProduct(productIdToEdit, product)
+
       }
 
    }
@@ -149,15 +181,20 @@ const ProductModForm = ({ categories, error, productAdded, onFetchCategories, pr
          position: toast.POSITION.TOP_RIGHT
       });
    };
+
    useEffect(() => {
       if (error) {
          showError();
       }
    }, [error]);
+
    useEffect(() => {
       if (productAdded) {
-         toast.success(`Product ${name} added successfully!`)
-         clearForm()
+         let promptMode = mode === "add" ? "added" : "modified"
+         toast.success(`Product ${name} ` + promptMode + " successfully!")
+         if (mode === "add") {
+            clearForm()
+         }
          onFormReset()
       }
    }, [productAdded])
@@ -173,8 +210,8 @@ const ProductModForm = ({ categories, error, productAdded, onFetchCategories, pr
 
    return (
       <Fragment>
+         {mode === "add" ? <h1>Add Product</h1> : <h1>Edit Product</h1>}
 
-         <h1>Add Product</h1>
          <ToastContainer />
 
          <FormControl>
@@ -236,7 +273,7 @@ const ProductModForm = ({ categories, error, productAdded, onFetchCategories, pr
                onChange={(e) => setDescription(e.target.value)} />
 
 
-            <Button variant="contained" color="primary" onClick={handleSubmit}>SAVE PRODUCT</Button>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>{mode === "add" ? "SAVE PRODUCT" : "MODIFY PRODUCT"}</Button>
          </FormControl>
 
       </Fragment>
@@ -247,14 +284,17 @@ let mapStateToProps = (globalState) => {
    return {
       categories: globalState.productMod.categories,
       error: globalState.productMod.error,
-      productAdded: globalState.productMod.productAdded
+      productAdded: globalState.productMod.productAdded,
+      productToEdit: globalState.productDetail.product
    }
 }
 let mapDispatchToProps = (dispatch) => {
    return {
       onFetchCategories: () => dispatch(fetchCategories()),
       onRequestPostAddProduct: (product) => dispatch(requestPostAddProduct(product)),
-      onFormReset: () => dispatch(formReset())
+      onFormReset: () => dispatch(formReset()),
+      onFetchProductDetail: (id) => dispatch(fetchProductDetail(id)),
+      onRequestPutmodifyProduct: (productId, productDetail) => dispatch(RequestPutmodifyProduct(productId, productDetail))
    }
 }
 

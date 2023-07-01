@@ -5,7 +5,7 @@ import NavBar from './components/NavBar/NavBar';
 
 
 import LogInPage from './components/SignInPage/LogInPage';
-import SignUpPage from './components/SignUpPage/SignUpPage';
+import SignUpPage from './screens/SignUpPage';
 import ProductPage from './screens/ProductPage';
 import ProductDetailPage from './screens/ProductDetailPage';
 import MainPageContents from './screens/MainPageContents';
@@ -31,6 +31,7 @@ function App() {
         <Route path="signup" element={<SignUpPage />} />
         <Route path="test" element={<IsolatedTest />} />
         <Route path="addproduct" element={<ProductModForm />} />
+        <Route path="edit/:id" element={<ProductModForm />} />
       </Routes>
       {/* TODO: What if logged in but type Sign up/login without log out? */}
     </div>

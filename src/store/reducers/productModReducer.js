@@ -32,6 +32,17 @@ export default function addProductReducer(state = initialState, action) {
             ...state,
             error: action.payload
          }
+      case "MODIFY_NEW_PRODUCT_SUCCESS":
+         return {
+            ...state,
+            error: null,
+            productAdded: true
+         }
+      case "MODIFY_NEW_PRODUCT_FAIL":
+         return {
+            ...state,
+            error: action.payload
+         }
       case "FORM_RESET":
          return {
             ...state,

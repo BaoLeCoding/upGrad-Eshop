@@ -13,7 +13,7 @@ const ProductGrid = ({ products, isAdmin, filterByCategory, sortByMode, searchIt
    const [deletePromise, setDeletePromise] = React.useState(null);
    useEffect(() => {
       onfetchProductList()
-   }, [products, filterByCategory, sortByMode, searchItemName])
+   }, [filterByCategory, sortByMode, searchItemName])
    let filteredProducts = (filterByCategory === "All") ? products : products.filter((product) => product.category === filterByCategory)
    switch (sortByMode) {
       case 1:

@@ -20,6 +20,7 @@ export const productDetailFail = (error) => {
 
 export const fetchProductDetail = (id) => {
    return (dispatch) => {
+      console.log('call API to get product detail');
       dispatch(productDetailRequest())
       axios.get(`http://localhost:8080/api/products/${id}`)
          .then(res => {

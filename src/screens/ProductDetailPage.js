@@ -27,7 +27,7 @@ const ProductDetailPage = ({ product, onFetchProductDetail, onSetOrderItem }) =>
    useEffect(() => {
       onFetchProductDetail(productId)
    }, [productId])
-   let { name, category, price, description, availableItems, imageUrl } = product
+   let { name, category, price, description, availableItems, imageUrl, manufacturer } = product
 
    return (
       <Fragment>
@@ -42,6 +42,7 @@ const ProductDetailPage = ({ product, onFetchProductDetail, onSetOrderItem }) =>
                      <Typography variant="h6" textAlign={'left'}>Available Quantity {availableItems}</Typography>
                   </Stack>
                   <Typography variant="h5" textAlign={'left'}>Category: {category}</Typography>
+                  <Typography variant="h5" textAlign={'left'}>Manufacturer: {manufacturer}</Typography>
                   <Typography variant="body" textAlign={'left'}>{description}</Typography>
                   <Typography variant="h4" textAlign={'left'}>$ {price}</Typography>
                   <TextField
