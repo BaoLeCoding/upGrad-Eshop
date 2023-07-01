@@ -19,7 +19,9 @@ import InputBase from '@mui/material/InputBase';
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import { setSearchItemName } from '../../store/actions/searchBarActions';
-
+import './NavBar.css'
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 
 
@@ -70,26 +72,30 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut, onSetSearchItemName }) => {
       onSetSearchItemName(e.target.value)
    }
    return (
-      <Box sx={{ flexGrow: 1 }}>
-
-         <AppBar position="static">
+      <Box>
+         <AppBar className="NavBar" position="fixed">
             <Toolbar>
-               <Link to="/">
+               <Link className="link" to="/">
                   <IconButton
+                     className="IconButton"
                      size="large"
                      edge="start"
                      color="inherit"
                      aria-label="menu"
                      sx={{ mr: 2 }}
                   >
+
                      <ShoppingCartIcon />
+
                   </IconButton>
                </Link>
-               <Typography variant="h6">
-                  upGrad E-shop
-               </Typography>
+               <Link className="link" to="/">
+                  <Typography variant="h6">
+                     upGrad E-shop
+                  </Typography>
+               </Link>
                {isLogin &&
-                  <Search style={{ marginLeft: 'auto' }}>
+                  <Search >
                      <SearchIconWrapper>
                         <SearchIcon />
                      </SearchIconWrapper>
@@ -102,19 +108,51 @@ let MenuAppBar = ({ isLogin, isAdmin, onSignOut, onSetSearchItemName }) => {
                }
                {!isLogin &&
                   <Stack direction="row" spacing={2} padding={1} style={{ marginLeft: 'auto' }}>
-                     <Link to="/login"> <Button color="inherit">
-                        Login
-                     </Button></Link>
+                     <Link
+                        className="link"
+                        to="/login">
+                        <Button color="inherit">
+                           Login
+                        </Button>
+                     </Link>
 
-                     <Link to="/signup"><Button color="inherit">Sign Up</Button></Link>
+                     <Link
+                        className="link"
+                        to="/signup">
+                        <Button color="inherit">
+                           Sign Up
+                        </Button>
+                     </Link>
                   </Stack>
                }
 
                {isLogin &&
-                  <Stack direction="row" spacing={2} padding={1} style={{ marginLeft: 'auto' }}>
-                     <Button color="inherit">Home</Button>
-                     {isAdmin && <Link to="/addproduct"><Button color="inherit">Add Product</Button></Link>}
-                     <Button color="secondary" variant='contained' onClick={() => onSignOut()}>Logout</Button>
+                  <Stack
+                     direction="row"
+                     spacing={2}
+                     padding={1}
+                     style={{ marginLeft: 'auto' }}>
+                     <Link className="link" to="/">
+                        <Button color="inherit">
+                           Home
+                        </Button>
+                     </Link>
+                     {isAdmin && <Link
+                        className="link"
+                        to="/addproduct">
+                        <Button
+                           color="inherit"
+                           startIcon={<AddBoxIcon />}>
+                           Add Product
+                        </Button>
+                     </Link>}
+                     <Button
+                        className="LogoutButton"
+                        variant='contained'
+                        onClick={() => onSignOut()}
+                        startIcon={<LogoutIcon />}>
+                        Logout
+                     </Button>
                   </Stack>
                }
 

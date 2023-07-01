@@ -10,6 +10,10 @@ import { connect } from "react-redux";
 import { postSignUp } from "../store/actions/authActions"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Navigate } from 'react-router-dom';
+import FormControl from '@mui/material/FormControl';
+import "./SignUpPage.css"
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 const SignUpPage = ({ isLogin, isAdmin, onSignUp }) => {
   const [email, setEmail] = React.useState("");
@@ -122,66 +126,94 @@ const SignUpPage = ({ isLogin, isAdmin, onSignUp }) => {
   }
 
   return (
-    <Stack spacing={2} alignItems={"center"}>
-      <ToastContainer />
-      <LockIcon color="error" />
-      <Typography variant="h3">
-        Sign Up
-      </Typography>
-      <TextField
-        error={firstNameError !== null}
-        helperText={firstNameError}
-        name="firstName"
-        label="First Name *"
-        variant="outlined"
-        value={firstName}
-        onChange={e => handleFormChange(e.target)} />
-      <TextField
-        error={lastNameError !== null}
-        helperText={lastNameError}
-        name="lastName"
-        label="Last Name *"
-        variant="outlined"
-        value={lastName}
-        onChange={e => handleFormChange(e.target)} />
-      <TextField
-        error={emailError !== null}
-        helperText={emailError}
-        name="emailAddress"
-        label="Email Address *" v
-        ariant="outlined"
-        alue={email}
-        onChange={e => handleFormChange(e.target)} />
-      <TextField
-        error={contactNumberError !== null}
-        helperText={contactNumberError}
-        name="contactNumber"
-        label="Contact Number *"
-        variant="outlined"
-        value={contactNumber}
-        onChange={e => handleFormChange(e.target)} />
-      <TextField
-        error={passwordError !== null}
-        helperText={passwordError}
-        name="password"
-        label="Password *"
-        type="password"
-        variant="outlined"
-        value={password}
-        onChange={e => handleFormChange(e.target)} />
-      <TextField
-        error={passwordConfirmError !== null}
-        helperText={passwordConfirmError}
-        name="passwordConfirm"
-        label="Confirm Password *"
-        type="password"
-        variant="outlined"
-        value={passwordConfirm}
-        onChange={e => handleFormChange(e.target)} />
+    <Stack
+      display={"flex"}
+      spacing={2}
+      alignItems={"center"}>
 
-      <Button variant="contained" onClick={handleSubmit}>SIGN UP</Button>
-      <Typography variant='body'><Link to="/login">Already have an account? Sign in </Link></Typography>
+      <Stack
+        className="SignUpFullForm"
+        display={"flex"}
+        spacing={2}
+        alignItems={"center"}>
 
+        <ToastContainer />
+
+        {isLogin ? <Navigate to="/" /> : null}
+        <Stack direction="row" spacing={2}>
+          <LockIcon
+            className='LockIcon' />
+          <Typography variant="h3">
+            Sign Up
+          </Typography>
+        </Stack>
+        <FormControl className="SignInForm" fullWidth sx={{ m: 1, width: '50ch' }}>
+          <TextField
+            className="Input"
+            error={firstNameError !== null}
+            helperText={firstNameError}
+            name="firstName"
+            label="First Name *"
+            variant="outlined"
+            value={firstName}
+            onChange={e => handleFormChange(e.target)} />
+          <TextField
+            className="Input"
+            error={lastNameError !== null}
+            helperText={lastNameError}
+            name="lastName"
+            label="Last Name *"
+            variant="outlined"
+            value={lastName}
+            onChange={e => handleFormChange(e.target)} />
+          <TextField
+            className="Input"
+            error={emailError !== null}
+            helperText={emailError}
+            name="emailAddress"
+            label="Email Address *" v
+            ariant="outlined"
+            alue={email}
+            onChange={e => handleFormChange(e.target)} />
+          <TextField
+            className="Input"
+            error={contactNumberError !== null}
+            helperText={contactNumberError}
+            name="contactNumber"
+            label="Contact Number *"
+            variant="outlined"
+            value={contactNumber}
+            onChange={e => handleFormChange(e.target)} />
+          <TextField
+            className="Input"
+            error={passwordError !== null}
+            helperText={passwordError}
+            name="password"
+            label="Password *"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={e => handleFormChange(e.target)} />
+          <TextField
+            className="Input"
+            error={passwordConfirmError !== null}
+            helperText={passwordConfirmError}
+            name="passwordConfirm"
+            label="Confirm Password *"
+            type="password"
+            variant="outlined"
+            value={passwordConfirm}
+            onChange={e => handleFormChange(e.target)} />
+
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            style={{ "padding": "10px", "borderRadius": "20px", "marginTop": "10px" }}>
+            SIGN UP
+          </Button>
+        </FormControl>
+        <Typography variant='body'><Link to="/login">Already have an account? Sign in </Link></Typography>
+      </Stack>
     </Stack>
   )
 }

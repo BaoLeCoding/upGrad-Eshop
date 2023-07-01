@@ -1,3 +1,42 @@
+/* REd #ee2c3c */
 .NavBarContainer{
-   background-color: aqua;
+   background-color: #3f55b2;
+}
+.NavBar{
+   padding-left: 2%;
+   padding-right: 2%;
+   background-color: #3f55b2 !important;
+}
+.link {
+  color: #FFF;
+  text-decoration: none;
+}
+.link:hover {
+   color: #ee2c3c;
+   text-decoration: none;
+}
+.button{
+   background-color: #ee2c3c;
+   color: #FFF;
+   border: none;
+   border-radius: 5px;
+   padding: 10px;
+   font-size: 16px;
+   cursor: pointer;
+}
+button{
+   background-color: #ee2c3c ;
+}
+button:hover{
+   background-color: #FFF !important;
+   color: #ee2c3c !important;
+}
+.LogoutButton{
+   background-color: #ee2c3c !important;
+   color: #FFF !important;
+   border: none;
+   border-radius: 5px;
+   padding: 10px;
+   font-size: 16px;
+   cursor: pointer;
 }

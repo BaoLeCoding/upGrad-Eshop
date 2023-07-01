@@ -38,33 +38,6 @@ function ProductCard({ product = demoData, isAdmin = false, onRequestConfirmItem
   const maxCardWidth = useState(400)
   const maxImageHeight = useState(200)
 
-  // const [confirmingDeletion, setConfirmingDeletion] = useState(false)
-  // const [showConfirmationDlg, setShowConfirmationDlg] = useState(false)
-  // const [openDialogFnc, setOpenDialogFnc] = useState()
-  // console.log(openDialogFnc)
-  // let handleDeleteCallback = () => {
-  //   // console.log("handleDeleteCallback")
-  //   if (openDialogFnc) {
-  //     // console.log("call openDialogFnc")
-  //     openDialogFnc(true)
-  //   }
-  //   setConfirmingDeletion(true)
-  // }
-
-  // let handleConfirmDeletion = (setOpenDialogFnc) => {
-  //   // console.log("handleConfirmDeletion")
-  //   setConfirmingDeletion(false)
-  //   setOpenDialogFnc(setOpenDialogFnc)
-  // }
-
-
-  // useEffect(() => {
-  //   if (confirmingDeletion) {
-  //     // console.log("confirmingDeletion")
-  //     setShowConfirmationDlg(true)
-  //   }
-  // }, [confirmingDeletion])
-
   return (
 
     <Card sx={{ maxWidth: maxCardWidth }}>
@@ -95,10 +68,10 @@ function ProductCard({ product = demoData, isAdmin = false, onRequestConfirmItem
             <Button size="small" variant="contained" style={{ marginRight: "auto" }} >BUY</Button>
           </Link>}
         {isAdmin &&
-        <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
-          <IconButton>
-            <EditIcon />
-          </IconButton>
+          <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
+            <IconButton>
+              <EditIcon />
+            </IconButton>
           </Link>}
         {isAdmin &&
           <IconButton onClick={(e) => onRequestConfirmItemDeletion(id)}>

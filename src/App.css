@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.main-content {
+  margin-top: 60px;
+  padding: 20px;
+  background-color: #f1f5ff!important;
+  min-height: 100vh;
+
+}
