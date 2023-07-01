@@ -11,13 +11,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postRequestOrdering } from '../store/actions/orderPageActions';
 import "./OrderPage.css"
+import { useNavigate } from "react-router-dom";
 
 const steps = ['Items', 'Select Address', 'Confirm Order'];
 const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, ordering_complete, ordering_error, onSetStep2Valid, onPostRequestOrdering }) => {
    if (product === null) { window.location.replace("/") }
    const [activeStep, setActiveStep] = React.useState(0);
    const [skipped, setSkipped] = React.useState(new Set());
-
+   const navigate = useNavigate();
    const isStepOptional = (step) => {
       // All steps are mandatory in this case
       return false;
@@ -66,6 +67,8 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
          "address": deliveryAddress.addressId
       }
       onPostRequestOrdering(orderData);
+      navigate("/")
+
 
    }
 
@@ -92,7 +95,7 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
       <Fragment>
 
          {/* {ordering_complete ? showOrderCompleteToast() : null} */}
-         <ToastContainer />
+
          <Container
             className="OrderPageMain"
          >

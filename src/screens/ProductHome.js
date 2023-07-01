@@ -22,7 +22,7 @@ const ProductHome = ({ isLogin }) => {
                <Grid item lg={2}>
                   <SortBy />
                </Grid>
-               <Grid item lg={10}>
+               <Grid item lg={9.5} style={{ "marginRight": "px" }}>
                   <ProductGrid />
                </Grid>
             </Grid>

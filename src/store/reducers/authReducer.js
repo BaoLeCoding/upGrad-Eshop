@@ -44,7 +44,19 @@ export default (state = initialState, action) => {
             token: null
 
          }
-      case 'SIGN_OUT':
+      case "SIGN_UP_SUCCESS": {
+         console.log('signed up success');
+         window.location.replace("/signin")
+         return {
+            ...state,
+            isLogin: false,
+            isAdmin: false,
+            isRequestLogin: false,
+            error: null,
+            token: null
+         }
+      }
+      case 'SIGN_OUT': {
          localStorage.removeItem("userId")
          localStorage.removeItem("token")
          localStorage.removeItem("isAdmin")
@@ -58,6 +70,7 @@ export default (state = initialState, action) => {
             error: null,
             token: null
          }
+      }
       default:
          {
             return state

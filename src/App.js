@@ -12,11 +12,13 @@ import OrderPage from './screens/OrderPage';
 import IsolatedTest from './screens/IsolatedTest';
 import ProductModForm from './screens/ProductMod';
 import Box from '@mui/material/Box';
+import { ToastContainer } from 'react-toastify';
 
 
 function App() {
   return (
     <Stack direction={'column'}>
+      <ToastContainer />
       <NavBar />
       <Box className="main-content">
         <Routes>

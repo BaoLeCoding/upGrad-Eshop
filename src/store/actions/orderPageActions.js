@@ -26,7 +26,7 @@ export const postRequestOrdering = (data) => {
             dispatch(orderingSuccess(res.data))
          })
       toast.promise(request, {
-         success: 'Order success!',
+         success: 'Order placed successfully!',
          error: 'Order fail!'
       })
 

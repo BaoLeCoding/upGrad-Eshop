@@ -39,7 +39,7 @@ const Search = styled('div')(({ theme }) => ({
       marginLeft: theme.spacing("5%"),
       marginRight: theme.spacing("5%"),
       width: 'auto',
-      minWidth: '30%'
+      minWidth: '40%'
    },
 }));
 const SearchIconWrapper = styled('div')(({ theme }) => ({

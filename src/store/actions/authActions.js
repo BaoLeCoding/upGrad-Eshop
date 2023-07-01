@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 export const signUp = (email, password, contactNumber, lastName, firstName) => {
    return {
       type: 'SIGN_UP',
@@ -86,11 +87,16 @@ export const fetchSignIn = (email, password) => {
 export const postSignUp = (data) => {
    return (dispatch) => {
       dispatch(signUpRequest())
-      axios.post("http://localhost:8080/api/auth/signup",
+      let request = axios.post("http://localhost:8080/api/auth/signup",
          data, { headers: { 'Content-Type': 'application/json' } })
          .then((response) => {
             dispatch(signUpSuccess())
-         }).catch(error => dispatch(signUpFailed(error)))
+         })
+      toast.promise(request, {
+         pending: 'Signing up...',
+         success: 'Sign up successfully',
+         error: 'Sign up failed,please check you input and try again'
+      })
    }
 
 }

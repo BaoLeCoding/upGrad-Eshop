@@ -38,12 +38,12 @@ function ProductCard({ product, isAdmin = false, onRequestConfirmItemDeletion })
       </Link>
 
       <CardContent >
-        <Stack spacing={4} direction="row" style={{ display: "flex", marginLeft: 'auto', minHeight: "60px" }}>
+        <Stack spacing={4} direction="row" style={{ display: "flex", marginLeft: 'auto', height: "60px" }}>
           <Typography
             gutterBottom
             variant="h6"
             style={{ flexGrow: 1, "fontWeight": "bold" }}>
-            {truncate(Itemname, 50)}
+            {truncate(Itemname, 40)}
           </Typography>
           <Typography
             gutterBottom variant="h6"

@@ -36,11 +36,13 @@ const ProductDetailPage = ({ isLogin, product, onFetchProductDetail, onSetOrderI
             className="ProductDetailCard">
             {/* <h1>ProductDetailPage</h1> */}
             <Stack direction='row'>
+               <div className="ImgContainer">
                <img
                   className="ProductImage"
                   src={imageUrl}
                   alt={name}
                   style={{ "maxWidth": 300, "maxHeight": 400 }} />
+               </div>
                <div class="vl"></div>
                <Stack
                   className="ProductDetail"

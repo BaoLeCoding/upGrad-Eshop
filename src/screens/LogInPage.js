@@ -15,8 +15,8 @@ import "./LogInPage.css"
 import FormControl from '@mui/material/FormControl';
 
 const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn }) => {
-  const [email, setEmail] = React.useState("Admin@gmail.com.vn");
-  const [password, setPassword] = React.useState("1234abcdef");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   return (
     <Stack
       display={"flex"}
@@ -64,7 +64,7 @@ const LogInPage = ({ isLogin, isAdmin, isRequestLogin, error, token, onSignIn })
             <Button
               variant="contained"
               onClick={() => onSignIn(email, password)}
-              style={{ "padding": "10px", "borderRadius": "20px" }}>
+              style={{ "padding": "10px", "borderRadius": "20px", "marginTop": "10px" }}>
               SIGN IN
             </Button>
           }

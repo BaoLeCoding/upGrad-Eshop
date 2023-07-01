@@ -34,7 +34,8 @@ const OrderConfirmation = ({ orderQuantity, product, deliveryAddress }) => {
                   </Typography>
                   <Typography
                      variant="h6"
-                     textAlign={'left'}>
+                     textAlign={'left'}
+                     style={{ "color": "#ee2c3c" }}>
                      Total Price: $ {orderQuantity * product.price}
                   </Typography>
                </Stack>

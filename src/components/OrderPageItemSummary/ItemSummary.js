@@ -27,7 +27,7 @@ const ItemSummary = ({ orderQuantity, product }) => {
                      {name}
                   </Typography>
                   <Typography
-                     variant="h6"
+                     variant="body"
                      textAlign={'left'}>
                      Quantity: {quantity}
                   </Typography>
