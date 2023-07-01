@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 //define action to fetch saved address and push new address via API call
 export const saveAddressRequest = () => {
    return {
@@ -64,12 +65,14 @@ export const postNewAddress = (data) => {
    return (dispatch) => {
       dispatch(addNewAddressRequest())
       data = { ...data, user: localStorage.getItem('userId') }
-      axios.post(`http://localhost:8080/api/addresses`, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      let request = axios.post(`http://localhost:8080/api/addresses`, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
          .then(res => {
             dispatch(addNewAddressSuccess(res.data))
          })
-         .catch(err => {
-            dispatch(addNewAddressFail(err.message))
-         })
+      toast.promise(request, {
+         pending: 'Adding new address...',
+         success: 'New address added successfully!',
+         error: 'Failed to add new address',
+      })
    }
 }

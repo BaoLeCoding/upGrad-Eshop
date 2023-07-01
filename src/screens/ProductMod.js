@@ -13,6 +13,8 @@ import { RequestPutmodifyProduct } from '../store/actions/modifyProductAction';
 import "./ProductMod.css"
 import { Typography } from '@mui/material'
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 let demoEmptyProduct = {
    name: "",
@@ -217,7 +219,12 @@ const ProductModForm = ({ categories, error, productAdded, onFetchCategories, on
          <ToastContainer />
          <Box display="flex" style={{ "justifyContent": "center" }}>
             <FormControl className="ProductModFullForm">
-               <Typography variant="h6" gutterBottom> {mode === "add" ? "Add Product" : "Edit Product"}</Typography>
+               <Stack direction="row" spacing={2} display="flex" style={{ "justifyContent": "center" }}>
+                  <AppRegistrationIcon
+                     className='ProductIcon' fontSize="small" />
+                  <Typography variant="h6" gutterBottom> {mode === "add" ? "Add Product" : "Edit Product"}</Typography>
+               </Stack>
+
                {/* Create input field for each state */}
                <TextField
                   className="Input"

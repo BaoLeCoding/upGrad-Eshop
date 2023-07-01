@@ -7,6 +7,7 @@ const OrderConfirmation = ({ orderQuantity, product, deliveryAddress }) => {
    console.log("Confirmation", deliveryAddress)
    return (
       <Fragment>
+         {console.log(deliveryAddress)}
          <Grid container spacing={2}>
             <Grid item xs={8}>
                <Stack spacing={2} direction='column'>
@@ -83,7 +84,7 @@ const OrderConfirmation = ({ orderQuantity, product, deliveryAddress }) => {
                   <Typography
                      variant="body"
                      textAlign={'left'}>
-                     Zip: {deliveryAddress.zip}
+                     Zip: {deliveryAddress.zipcode}
                   </Typography>
 
                </Stack>

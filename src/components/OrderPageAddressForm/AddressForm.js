@@ -20,6 +20,9 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
    const [state, setState] = React.useState(deiveryAddress.state);
    const [landmark, setLandmark] = React.useState(deiveryAddress.landmark);
    const [zipCode, setZipCode] = React.useState(deiveryAddress.zipcode);
+   useEffect(() => {
+      onFetchSavedAddress();
+   }, []);
 
    const handleSelectSavedAddress = (event) => {
       setSelectedSavedAddress(event.target.value);
@@ -39,7 +42,9 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
       setLandmark(selectedAddress.landmark);
       setZipCode(selectedAddress.zipcode);
    }
+
    useEffect(() => { checkValidToContinue() }, [selectSavedAddress]);
+
    const checkValidToContinue = () => {
       // To continue, the form must be all filled out
       console.log("form is valid")
@@ -63,9 +68,8 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
       return false;
    }
 
-   useEffect(() => {
-      onFetchSavedAddress();
-   }, []);
+
+
    const handleFormInutChange = (event) => {
       const { name, value } = event.target;
       switch (name) {
@@ -115,16 +119,16 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
       //reload address
       onFetchSavedAddress()
    }
-   const showError = () => {
-      toast.error('Something went wrong, cannot add your address!', {
-         position: toast.POSITION.TOP_RIGHT
-      });
-   };
-   useEffect(() => {
-      if (error) {
-         showError();
-      }
-   }, [error]);
+   // const showError = () => {
+   //    toast.error('Something went wrong, cannot add your address!', {
+   //       position: toast.POSITION.TOP_RIGHT
+   //    });
+   // };
+   // useEffect(() => {
+   //    if (error) {
+   //       showError();
+   //    }
+   // }, [error]);
    return (
       <Fragment>
          <ToastContainer />

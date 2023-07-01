@@ -1,42 +1,43 @@
 /* REd #ee2c3c */
-.NavBarContainer{
-   background-color: #3f55b2;
+.NavBarContainer {
+  background-color: #3f55b2;
 }
-.NavBar{
-   padding-left: 0%;
-   padding-right: 0%;
-   background-color: #3f55b2 !important;
+.NavBar {
+  padding-left: 0%;
+  padding-right: 0%;
+  background-color: #3f55b2 !important;
 }
 .link {
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
+  white-space: nowrap;
 }
 .link:hover {
-   color: #ee2c3c;
-   text-decoration: none;
+  color: #ee2c3c;
+  text-decoration: none;
 }
-.button{
-   background-color: #ee2c3c;
-   color: #FFF;
-   border: none;
-   border-radius: 5px;
-   padding: 10px;
-   font-size: 16px;
-   cursor: pointer;
+.button {
+  background-color: #ee2c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
-button{
-   background-color: #ee2c3c ;
+button {
+  background-color: #ee2c3c;
 }
-button:hover{
-   background-color: #FFF !important;
-   color: #ee2c3c !important;
+button:hover {
+  background-color: #fff !important;
+  color: #ee2c3c !important;
 }
-.LogoutButton{
-   background-color: #ee2c3c !important;
-   color: #FFF !important;
-   border: none;
-   border-radius: 5px;
-   padding: 10px;
-   font-size: 16px;
-   cursor: pointer;
+.LogoutButton {
+  background-color: #ee2c3c !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }

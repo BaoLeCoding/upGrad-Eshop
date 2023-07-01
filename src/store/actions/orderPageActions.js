@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 export const orderingRequest = () => {
    return {
       type: "ORDERING_REQUEST"
@@ -19,13 +20,15 @@ export const orderingFail = (error) => {
 export const postRequestOrdering = (data) => {
    return (dispatch) => {
       dispatch(orderingRequest())
-      data = {...data, user: localStorage.getItem('userId') }
-      axios.post(`http://localhost:8080/api/orders`, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
+      data = { ...data, user: localStorage.getItem('userId') }
+      let request = axios.post(`http://localhost:8080/api/orders`, data, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
          .then(res => {
             dispatch(orderingSuccess(res.data))
          })
-         .catch(err => {
-            dispatch(orderingFail(err.message))
-         })
+      toast.promise(request, {
+         success: 'Order success!',
+         error: 'Order fail!'
+      })
+
    }
 }

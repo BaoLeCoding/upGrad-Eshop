@@ -14,6 +14,7 @@ import "./OrderPage.css"
 
 const steps = ['Items', 'Select Address', 'Confirm Order'];
 const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, ordering_complete, ordering_error, onSetStep2Valid, onPostRequestOrdering }) => {
+   if (product === null) { window.location.replace("/") }
    const [activeStep, setActiveStep] = React.useState(0);
    const [skipped, setSkipped] = React.useState(new Set());
 
@@ -50,8 +51,8 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
          setSkipped(newSkipped)
       }
    };
+
    const handleNextStep2 = () => {
-      console.log("handling Step 2,current state valid is", step2valid);
       if (!step2valid) {
          showErrorAdressToast();
          return false
@@ -64,7 +65,6 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
          "quantity": orderQuantity,
          "address": deliveryAddress.addressId
       }
-      console.log("OrderData", orderData)
       onPostRequestOrdering(orderData);
       if (ordering_complete) {
          showOrderCompleteToast();
@@ -76,26 +76,12 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
       onSetStep2Valid(false);
    };
 
-   const handleSkip = () => {
-      if (!isStepOptional(activeStep)) {
-         // You probably want to guard against something like this,
-         // it should never occur unless someone's actively trying to break something.
-         throw new Error("You can't skip a step that isn't optional.");
-      }
-
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      setSkipped((prevSkipped) => {
-         const newSkipped = new Set(prevSkipped.values());
-         newSkipped.add(activeStep);
-         return newSkipped;
-      });
-   };
-
    const handleReset = () => {
       setActiveStep(0);
    };
+
    const showErrorAdressToast = () => {
-      toast.error('PLease select address!', {
+      toast.error('Please select address!', {
          position: toast.POSITION.TOP_RIGHT
       });
    };
@@ -106,14 +92,15 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
    };
    return (
       <Fragment>
+
          {/* {ordering_complete ? showOrderCompleteToast() : null} */}
          <ToastContainer />
          <Container
             className="OrderPageMain"
          >
-            <Stepper 
-            activeStep={activeStep}
-            className="StepperBar">
+            <Stepper
+               activeStep={activeStep}
+               className="StepperBar">
                {steps.map((label, index) => {
                   const stepProps = {};
                   const labelProps = {};
@@ -152,11 +139,6 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
                      Back
                   </Button>
                   <Box sx={{ flex: '1 1 auto' }} />
-                  {isStepOptional(activeStep) && (
-                     <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                        Skip
-                     </Button>
-                  )}
                   {activeStep != -1 ?
                      <Button onClick={handleNext}>
                         {activeStep === steps.length - 1 ? 'PLACE ORDER' : 'Next'}
