@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Switch, Routes, Route, Link } from "react-router-dom"
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/NavigationBar/NavBar';
 import Stack from '@mui/material/Stack';
 
 import LogInPage from './screens/LogInPage';

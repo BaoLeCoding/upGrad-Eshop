@@ -66,9 +66,7 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
          "address": deliveryAddress.addressId
       }
       onPostRequestOrdering(orderData);
-      if (ordering_complete) {
-         showOrderCompleteToast();
-      }
+
    }
 
    const handleBack = () => {
@@ -85,11 +83,11 @@ const OrderPage = ({ orderQuantity, product, deliveryAddress, step2valid, orderi
          position: toast.POSITION.TOP_RIGHT
       });
    };
-   const showOrderCompleteToast = () => {
-      toast.success('Order place successfully!', {
-         position: toast.POSITION.TOP_RIGHT
-      });
-   };
+   // const showOrderCompleteToast = () => {
+   //    toast.success('Order place successfully!', {
+   //       position: toast.POSITION.TOP_RIGHT
+   //    });
+   // };
    return (
       <Fragment>
 

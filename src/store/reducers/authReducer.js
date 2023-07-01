@@ -20,11 +20,11 @@ export default (state = initialState, action) => {
             token: null
          }
       case 'SIGN_IN_SUCCESS':
-         localStorage.setItem("userId", action.payload.userId)   
+         localStorage.setItem("userId", action.payload.userId)
          localStorage.setItem("token", action.payload.token)
          localStorage.setItem("isAdmin", action.payload.isAdmin)
          localStorage.setItem("isLogin", true)
-         
+
          return {
             ...state,
             isLogin: true,
@@ -49,6 +49,7 @@ export default (state = initialState, action) => {
          localStorage.removeItem("token")
          localStorage.removeItem("isAdmin")
          localStorage.removeItem("isLogin")
+         window.history.pushState({}, null, "/")
          return {
             ...state,
             isLogin: false,

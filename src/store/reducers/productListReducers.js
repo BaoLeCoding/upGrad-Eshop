@@ -43,6 +43,7 @@ export const productListReducer = (state = initalState, action) => {
             itemIdToDelete: action.payload
          }
       case "PRODUCT_DELETION_SUCCESS":
+         window.location.reload();
          return {
             ...state,
             products: state.products.filter(item => item.id !== action.payload.id),
