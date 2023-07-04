@@ -20,9 +20,19 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
    const [state, setState] = React.useState(deiveryAddress.state);
    const [landmark, setLandmark] = React.useState(deiveryAddress.landmark);
    const [zipCode, setZipCode] = React.useState(deiveryAddress.zipcode);
+   const [canSaveAddress, setCanSaveAddress] = React.useState(false);
    useEffect(() => {
       onFetchSavedAddress();
    }, []);
+   let clearForm = () => {
+      setName('');
+      setContactNumber('');
+      setStreet('');
+      setCity('');
+      setState('');
+      setLandmark('');
+      setZipCode('');
+   }
 
    const handleSelectSavedAddress = (event) => {
       setSelectedSavedAddress(event.target.value);
@@ -100,6 +110,10 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
       //check if form is valid to continue
       if (checkValidToContinue()) {
          onSetStep2Valid(true);
+         setCanSaveAddress(true);
+      }
+      else {
+         setCanSaveAddress(false);
       }
    }
 
@@ -203,6 +217,7 @@ const AddressForm = ({ loading, error, savedAddresses, deiveryAddress, onFetchSa
                   className='SubmitBtn'
                   variant='contained'
                   onClick={handleSaveAddress}
+                  disabled={canSaveAddress ? null : true}
                >SAVE ADDRESS</Button>
 
             </FormControl>

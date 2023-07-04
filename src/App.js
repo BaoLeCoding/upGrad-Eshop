@@ -29,8 +29,6 @@ function App() {
           <Route path="order">
             <Route index element={<OrderPage />} />
           </Route>
-
-
           <Route path="login" element={<LogInPage />} />
           <Route path="signup" element={<SignUpPage />} />
           <Route path="test" element={<IsolatedTest />} />
